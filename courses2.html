@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESLAM | Courses P2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* تنسيقات الكروت المتوافقة */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 40px 0;
+        }
+
+        .course-card {
+            background: var(--card-bg);
+            border: 1px solid #111;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-card:hover {
+            border-color: var(--matrix);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 255, 0, 0.1);
+        }
+
+        .course-img {
+            width: 100%;
+            height: 180px;
+            background: #050505;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #111;
+        }
+
+        .course-img i { font-size: 4rem; color: var(--matrix); opacity: 0.5; }
+
+        .course-info { padding: 20px; flex: 1; }
+        .course-info h3 { color: var(--matrix); margin-bottom: 10px; font-size: 1.2rem; }
+        .course-info p { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; }
+
+        .btn-course {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid var(--matrix);
+            color: var(--matrix);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .btn-course:hover { background: var(--matrix); color: #000; }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 40px 0;
+        }
+
+        .pagination a {
+            padding: 8px 15px;
+            border: 1px solid #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .pagination a.active { background: var(--matrix); color: #000; border-color: var(--matrix); }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">ESLAM_ROOT</a>
+            <nav>
+                <a href="index.html">الرئيسية</a>
+                <a href="courses.html" style="color: var(--matrix);">الدورات</a>
+                <a href="tools.html">الأدوات</a>
+                <a href="contact.html">تواصل معنا</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div style="text-align: center; margin-top: 50px;">
+            <h1 style="color: var(--matrix); font-size: 2.5rem;">دبلومات متقدمة - الجزء الثاني</h1>
+            <p style="color: #666;">تابع رحلة احترافك في عالم الـ Red Teaming</p>
+        </div>
+
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-img"><i class="fas fa-microchip"></i></div>
+                <div class="course-info">
+                    <h3>أمن الأنظمة المدمجة (IoT)</h3>
+                    <p>استكشاف الثغرات في الأجهزة الذكية وأنظمة التحكم الصناعي.</p>
+                    <a href="soon.html" class="btn-course">تفاصيل الدورة</a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-img"><i class="fas fa-cloud-shield"></i></div>
+                <div class="course-info">
+                    <h3>أمن الحوسبة السحابية</h3>
+                    <p>اختبار اختراق بيئات AWS, Azure وفهم ثغرات الـ Cloud.</p>
+                    <a href="soon.html" class="btn-course">تفاصيل الدورة</a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-img"><i class="fas fa-user-ninja"></i></div>
+                <div class="course-info">
+                    <h3>الهندسة الاجتماعية المتقدمة</h3>
+                    <p>فهم علم النفس التطبيقي في عمليات الاختراق البشري.</p>
+                    <a href="soon.html" class="btn-course">تفاصيل الدورة</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <a href="courses.html">1</a>
+            <a href="courses2.html" class="active">2</a>
+            <a href="soon.html">3</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h3>عن البوابة</h3>
+                <p>أكاديمية متخصصة في تدريس أساليب الـ Red Teaming واختبار الاختراق.</p>
+            </div>
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul style="list-style: none;">
+                    <li><a href="terms.html" style="color: #888; text-decoration: none;">الشروط والأحكام</a></li>
+                    <li><a href="contact.html" style="color: #888; text-decoration: none;">الدعم الفني</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>تواصل آمن</h3>
+                <p style="color: var(--matrix);">eslamatia782@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
+        function setSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        setSize(); window.onresize = setSize;
+        const drops = Array(Math.floor(canvas.width/20)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
+            drops.forEach((y, i) => {
+                ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
+                if(y*20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        } setInterval(draw, 35);
+    </script>
+</body>
+</html>

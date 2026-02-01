@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESLAM | Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* تنسيقات خاصة بصفحة الأدوات */
+        .tools-header { text-align: center; margin-top: 50px; margin-bottom: 40px; }
+        .tools-header h1 { color: var(--matrix); font-size: 2.5rem; text-shadow: 0 0 15px rgba(0, 255, 0, 0.3); }
+        .tools-header p { color: #888; }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding-bottom: 60px;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border: 1px solid #111;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            border-color: var(--matrix);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 255, 0, 0.1);
+        }
+
+        .tool-card i { font-size: 2.5rem; color: var(--matrix); margin-bottom: 15px; }
+        .tool-card h3 { color: #fff; margin-bottom: 10px; }
+        .tool-card p { color: #777; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; }
+
+        /* تعديل الزر ليكون للعرض فقط */
+        .btn-soon {
+            display: inline-block;
+            padding: 8px 30px;
+            border: 1px solid #333; /* لون باهت للزر */
+            color: #555; /* نص باهت */
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: default; /* يظهر للمستخدم أنه غير قابل للضغط */
+            transition: 0.3s;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: rgba(0, 255, 0, 0.05);
+            color: #444;
+            border: 1px solid #222;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">ESLAM_ROOT</a>
+            <nav>
+                <a href="index.html">الرئيسية</a>
+                <a href="courses.html">الدورات</a>
+                <a href="tools.html" style="color: var(--matrix);">الأدوات</a>
+                <a href="contact.html">تواصل معنا</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tools-header">
+            <h1>ترسانة الأدوات الرقمية</h1>
+            <p>مجموعة من الأدوات والسكربتات المطورة خصيصاً لعمليات اختبار الاختراق.</p>
+        </div>
+
+        <div class="tools-grid">
+            <div class="tool-card">
+                <span class="status-badge">قيد التطوير</span>
+                <i class="fas fa-user-secret"></i>
+                <h3>Scanner Pro</h3>
+                <p>سكربت متقدم لفحص الثغرات الأمنية في الشبكات المحلية واستخراج التقارير.</p>
+                <span class="btn-soon">قريباً</span>
+            </div>
+
+            <div class="tool-card">
+                <span class="status-badge">قيد التطوير</span>
+                <i class="fas fa-key"></i>
+                <h3>Pass-Breaker</h3>
+                <p>أداة قوية لاختبار قوة كلمات المرور باستخدام هجمات القوة الغاشمة (Brute Force).</p>
+                <span class="btn-soon">قريباً</span>
+            </div>
+
+            <div class="tool-card">
+                <span class="status-badge">قيد التطوير</span>
+                <i class="fas fa-shield-alt"></i>
+                <h3>Firewall Bypass</h3>
+                <p>سكربت مخصص لتخطي جدران الحماية وتحليل حزم البيانات المشفرة.</p>
+                <span class="btn-soon">قريباً</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h3>عن البوابة</h3>
+                <p>أكاديمية متخصصة في تدريس أساليب الـ Red Teaming واختبار الاختراق المتقدم.</p>
+            </div>
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li><a href="terms.html" style="color: #888; text-decoration: none;">الشروط والأحكام</a></li>
+                    <li><a href="contact.html" style="color: #888; text-decoration: none;">الدعم الفني</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>تواصل آمن</h3>
+                <p style="color: var(--matrix);">eslamatia782@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
+        function setSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        setSize(); window.onresize = setSize;
+        const drops = Array(Math.floor(canvas.width/20)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
+            drops.forEach((y, i) => {
+                ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
+                if(y*20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        } setInterval(draw, 35);
+    </script>
+</body>
+</html>

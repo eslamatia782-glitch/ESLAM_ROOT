@@ -1,0 +1,104 @@
+/* العقل المدبر لتصميم الموقع */
+:root {
+    --matrix: #0f0;
+    --bg: #000;
+    --card-bg: rgba(10, 15, 10, 0.9);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: #fff;
+    font-family: 'Tajawal', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ضبط أبعاد الشاشات (تلقائي) */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 0;
+}
+
+/* تصميم الهيدر (رأس الصفحة) */
+header {
+    background: rgba(0, 0, 0, 0.9);
+    border-bottom: 2px solid var(--matrix);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--matrix);
+    text-decoration: none;
+    text-shadow: 0 0 10px var(--matrix);
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: var(--matrix);
+}
+
+/* الفوتر (أسفل الصفحة) */
+footer {
+    background: #050505;
+    border-top: 1px solid var(--matrix);
+    padding: 40px 20px 20px;
+    margin-top: auto;
+}
+
+.footer-grid {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+/* خلفية الماتريكس */
+canvas#matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.15;
+}
+
+/* ضبط الموبايل */
+@media (max-width: 768px) {
+    .header-container { flex-direction: column; gap: 10px; }
+    nav { font-size: 0.8rem; gap: 10px; }
+}

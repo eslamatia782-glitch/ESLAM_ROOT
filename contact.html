@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESLAM | Contact</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* تنسيقات خاصة بصفحة التواصل */
+        :root { --tg: #26A5E4; --wa: #25D366; }
+        
+        .contact-header { text-align: center; margin-top: 50px; margin-bottom: 40px; }
+        .contact-header h1 { color: var(--matrix); font-size: 2.5rem; }
+        .contact-header p { color: #888; }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            border: 1px solid #111;
+            padding: 40px 20px;
+            border-radius: 15px;
+            transition: 0.4s;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-card i { font-size: 3rem; }
+        .contact-card h3 { color: #fff; font-size: 1.4rem; }
+        .contact-card p { color: #aaa; font-size: 0.9rem; }
+
+        .tg-card i { color: var(--tg); }
+        .tg-card:hover { border-color: var(--tg); box-shadow: 0 0 20px rgba(38, 165, 228, 0.2); transform: translateY(-10px); }
+        
+        .wa-card i { color: var(--wa); }
+        .wa-card:hover { border-color: var(--wa); box-shadow: 0 0 20px rgba(37, 211, 102, 0.2); transform: translateY(-10px); }
+        
+        .mail-card i { color: var(--matrix); }
+        .mail-card:hover { border-color: var(--matrix); box-shadow: 0 0 20px rgba(0, 255, 0, 0.2); transform: translateY(-10px); }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">ESLAM_ROOT</a>
+            <nav>
+                <a href="index.html">الرئيسية</a>
+                <a href="courses.html">الدورات</a>
+                <a href="tools.html">الأدوات</a>
+                <a href="contact.html" style="color: var(--matrix);">تواصل معنا</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="contact-header">
+            <h1>قنوات التواصل الآمن</h1>
+            <p>لأي استفسار بخصوص الدورات أو للإبلاغ عن مشكلة تقنية، يمكنك التواصل مباشرة:</p>
+        </div>
+
+        <div class="contact-grid">
+            <a href="https://t.me/eng_islam_attia" class="contact-card tg-card" target="_blank">
+                <i class="fab fa-telegram"></i>
+                <h3>Telegram</h3>
+                <p>@eng_islam_attia</p>
+            </a>
+
+            <a href="https://wa.me/qr/VM3JH3U3ERNYL1" class="contact-card wa-card" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                <h3>WhatsApp</h3>
+                <p>مراسلة مباشرة</p>
+            </a>
+
+            <a href="mailto:eslamatia782@gmail.com" class="contact-card mail-card">
+                <i class="fas fa-envelope-open-text"></i>
+                <h3>E-Mail</h3>
+                <p>eslamatia782@gmail.com</p>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h3>عن البوابة</h3>
+                <p>أكاديمية متخصصة في تدريس أساليب الـ Red Teaming واختبار الاختراق المتقدم.</p>
+            </div>
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li><a href="terms.html" style="color: #888; text-decoration: none;">الشروط والأحكام</a></li>
+                    <li><a href="contact.html" style="color: #888; text-decoration: none;">الدعم الفني</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>تواصل آمن</h3>
+                <p style="color: var(--matrix);">eslamatia782@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
+        function setSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        setSize(); window.onresize = setSize;
+        const drops = Array(Math.floor(canvas.width/20)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
+            drops.forEach((y, i) => {
+                ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
+                if(y*20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        } setInterval(draw, 35);
+    </script>
+</body>
+</html>
