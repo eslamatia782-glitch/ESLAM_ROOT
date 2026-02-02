@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المكتبة الرقمية | Eslam_Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --matrix: #00ff00; --card-bg: rgba(10, 10, 10, 0.95); }
+        body { background: #000; color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; overflow-x: hidden; }
+        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* الهيدر المتجاوب */
+        header { background: rgba(0,0,0,0.85); border-bottom: 1px solid #111; position: sticky; top: 0; z-index: 100; min-height: 80px; display: flex; align-items: center; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 0; }
+        .logo { font-size: 1.6rem; font-weight: 900; color: var(--matrix); text-decoration: none; }
+        
+        nav { display: flex; gap: 20px; align-items: center; }
+        nav a { color: #fff; text-decoration: none; font-weight: 700; transition: 0.3s; font-size: 1rem; }
+        nav a:hover { color: var(--matrix); }
+
+        .auth-buttons { display: flex; gap: 10px; align-items: center; }
+
+        /* قسم المكتبة */
+        .page-header { text-align: center; padding: 40px 0; }
+        .page-header h1 { font-size: 2.5rem; color: var(--matrix); margin-bottom: 10px; }
+        
+        .library-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding-bottom: 50px; }
+        .book-card { background: var(--card-bg); border: 1px solid #222; border-radius: 12px; padding: 25px; text-align: center; transition: 0.4s; }
+        .book-card:hover { border-color: var(--matrix); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,255,0,0.1); }
+        
+        .book-icon { font-size: 3.5rem; color: var(--matrix); margin-bottom: 15px; }
+        .book-card h3 { margin: 10px 0; font-size: 1.3rem; }
+        .book-card p { color: #888; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; }
+        
+        .btn-read { display: inline-block; width: 100%; padding: 12px; border: 1px solid var(--matrix); color: var(--matrix); text-decoration: none; border-radius: 6px; font-weight: bold; transition: 0.3s; box-sizing: border-box; }
+        .btn-read:hover { background: var(--matrix); color: #000; }
+
+        /* --- الأبعاد الجامدة للموبايل --- */
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; gap: 15px; text-align: center; }
+            nav { gap: 10px; flex-wrap: wrap; justify-content: center; }
+            nav a { font-size: 0.9rem; }
+            .page-header h1 { font-size: 1.8rem; }
+            .library-grid { grid-template-columns: 1fr; } /* كتاب واحد في السطر */
+            .logo { font-size: 1.4rem; }
+        }
+
+        footer { background: #050505; border-top: 1px solid #111; padding: 30px 0; text-align: center; color: #555; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">ESLAM_ACADEMY</a>
+            <nav>
+                <a href="index.html">الرئيسية</a>
+                <a href="courses.html">الدورات</a>
+                <a href="tools.html">الأدوات</a>
+                <a href="library.html" style="color: var(--matrix);">المكتبة</a>
+            </nav>
+            <div class="auth-buttons" id="authSection"></div>
+        </div>
+    </header>
+
+    <div class="container" id="protectedContent" style="display: none;">
+        <div class="page-header">
+            <h1>المكتبة السرية</h1>
+            <p>أهم الكتب والمراجع في عالم الأمن السيبراني</p>
+        </div>
+
+        <div class="library-grid">
+            <div class="book-card">
+                <div class="book-icon"><i class="fas fa-book-dead"></i></div>
+                <h3>دليل الهاكر الأخلاقي</h3>
+                <p>مرجع شامل لأدوات الفحص والاستغلال المتقدمة.</p>
+                <a href="soon.html" class="btn-read">بدء القراءة</a>
+            </div>
+            <div class="book-card">
+                <div class="book-icon"><i class="fas fa-file-code"></i></div>
+                <h3>ثغرات المواقع (OWASP)</h3>
+                <p>شرح لأخطر 10 ثغرات برمجية وطرق حمايتها.</p>
+                <a href="soon.html" class="btn-read">بدء القراءة</a>
+            </div>
+            <div class="book-card">
+                <div class="book-icon"><i class="fas fa-network-wired"></i></div>
+                <h3>أساسيات الـ Networking</h3>
+                <p>كل ما تحتاجه لفهم ترافيك الشبكات والبروتوكولات.</p>
+                <a href="soon.html" class="btn-read">بدء القراءة</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>&copy; 2026 Eslam_Academy | جميع الحقوق محفوظة</footer>
+
+    <script>
+        const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
+        function setSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        setSize(); window.onresize = setSize;
+        const drops = Array(Math.floor(canvas.width/20)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
+            drops.forEach((y, i) => {
+                ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
+                if(y*20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        } setInterval(draw, 35);
+
+        window.onload = function() {
+            const user = localStorage.getItem('user_name');
+            if (!user) {
+                alert("⚠️ يرجى تسجيل الدخول للوصول للمكتبة."); window.location.href = "login.html";
+            } else {
+                document.getElementById('protectedContent').style.display = 'block';
+                document.getElementById('authSection').innerHTML = `
+                    <span style="color:var(--matrix); font-weight:bold; margin-left:10px;">${user}</span>
+                    <a href="#" onclick="logout()" style="color:#ff3333; text-decoration:none;">[خروج]</a>`;
+            }
+        }
+        function logout() { localStorage.removeItem('user_name'); location.reload(); }
+    </script>
+</body>
+</html>
