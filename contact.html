@@ -15,42 +15,30 @@
         /* الهيدر المتجاوب */
         header { background: rgba(0,0,0,0.85); border-bottom: 1px solid #111; position: sticky; top: 0; z-index: 100; min-height: 80px; display: flex; align-items: center; }
         .header-container { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 0; }
-        .logo { font-size: 1.6rem; font-weight: 900; color: var(--matrix); text-decoration: none; }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--matrix); text-decoration: none; }
+        nav { display: flex; gap: 15px; }
+        nav a { color: #fff; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+
+        /* قسم التواصل */
+        .contact-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 60px 0; }
+        .contact-card { background: var(--card-bg); border: 1px solid #222; border-radius: 15px; padding: 40px; text-align: center; transition: 0.3s; }
+        .contact-card:hover { border-color: var(--matrix); transform: translateY(-10px); }
         
-        nav { display: flex; gap: 20px; }
-        nav a { color: #fff; text-decoration: none; font-weight: 700; transition: 0.3s; }
-        nav a:hover { color: var(--matrix); }
+        .contact-card i { font-size: 4rem; margin-bottom: 20px; }
+        .icon-tg { color: var(--tg); }
+        .icon-wa { color: var(--wa); }
 
-        /* قسم المحتوى */
-        .contact-header { text-align: center; padding: 50px 0 30px; }
-        .contact-header h1 { font-size: 2.5rem; color: var(--matrix); margin-bottom: 15px; }
-        .contact-header p { color: #ccc; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
-
-        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0; }
-        .contact-card { background: var(--card-bg); border: 1px solid #222; border-radius: 15px; padding: 35px; text-align: center; transition: 0.4s; }
-        .contact-card:hover { border-color: var(--matrix); transform: translateY(-8px); }
-        
-        .icon-box { font-size: 4rem; margin-bottom: 20px; }
-        .tg-icon { color: var(--tg); }
-        .wa-icon { color: var(--wa); }
-
-        .btn-contact { display: block; padding: 15px; border-radius: 8px; text-decoration: none; font-weight: 900; font-size: 1.1rem; transition: 0.3s; color: #fff; }
+        .btn-contact { display: inline-block; width: 100%; padding: 15px; border-radius: 8px; text-decoration: none; font-weight: 900; font-size: 1.1rem; color: #fff; transition: 0.3s; margin-top: 20px; }
         .btn-tg { background: var(--tg); }
-        .btn-tg:hover { background: #1c8adb; box-shadow: 0 0 20px rgba(38, 165, 228, 0.4); }
         .btn-wa { background: var(--wa); }
-        .btn-wa:hover { background: #1ebe57; box-shadow: 0 0 20px rgba(37, 211, 102, 0.4); }
+        .btn-contact:hover { opacity: 0.8; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
 
-        /* --- الأبعاد الجامدة للموبايل --- */
         @media (max-width: 768px) {
-            header { height: auto; padding: 15px 0; }
-            .header-container { flex-direction: column; gap: 15px; text-align: center; }
-            nav { gap: 12px; flex-wrap: wrap; justify-content: center; }
-            .contact-header h1 { font-size: 1.9rem; }
-            .contact-grid { grid-template-columns: 1fr; padding: 0 10px; }
-            .contact-card { padding: 25px; }
+            .header-container { flex-direction: column; gap: 15px; }
+            .contact-wrapper { grid-template-columns: 1fr; }
         }
 
-        footer { text-align: center; padding: 40px; color: #555; border-top: 1px solid #111; margin-top: 50px; }
+        footer { text-align: center; padding: 30px; color: #444; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
@@ -59,35 +47,29 @@
     <header>
         <div class="container header-container">
             <a href="index.html" class="logo">ESLAM_ACADEMY</a>
-            <nav>
-                <a href="index.html">الرئيسية</a>
-                <a href="courses.html">الدورات</a>
-                <a href="tools.html">الأدوات</a>
-                <a href="contact.html" style="color: var(--matrix);">تواصل</a>
-            </nav>
-            <div id="authSection"></div>
+            <nav id="authSection"></nav>
         </div>
     </header>
 
     <main class="container">
-        <div class="contact-header">
-            <h1>تواصل مع الدعم الفني</h1>
-            <p>لأي استفسارات بخصوص الدورات أو مشاكل في الحساب، فريقنا جاهز للرد عليك عبر المنصات التالية:</p>
+        <div style="text-align: center; padding-top: 50px;">
+            <h1 style="color: var(--matrix); font-size: 2.5rem;">قنوات الاتصال المباشرة</h1>
+            <p style="color: #888;">اختر الوسيلة المناسبة لك للدعم الفني أو الاستفسارات</p>
         </div>
 
-        <div class="contact-grid">
+        <div class="contact-wrapper">
             <div class="contact-card">
-                <div class="icon-box tg-icon"><i class="fab fa-telegram"></i></div>
-                <h3>قناة التليجرام</h3>
-                <p>تابع آخر التحديثات والأدوات المسربة يومياً.</p>
-                <a href="https://t.me/Eslam_Root" class="btn-contact btn-tg" target="_blank">انضم للقناة</a>
+                <i class="fab fa-telegram icon-tg"></i>
+                <h2>Telegram</h2>
+                <p>تواصل معنا عبر تلجرام للحصول على رد سريع ودعم تقني.</p>
+                <a href="https://t.me/eng_islam_attia" class="btn-contact btn-tg" target="_blank">فتح تلجرام</a>
             </div>
 
             <div class="contact-card">
-                <div class="icon-box wa-icon"><i class="fab fa-whatsapp"></i></div>
-                <h3>دعم واتساب</h3>
-                <p>تواصل مباشر مع إدارة الأكاديمية للاستفسارات الخاصة.</p>
-                <a href="https://wa.me/201016844390" class="btn-contact btn-wa" target="_blank">ارسل رسالة</a>
+                <i class="fab fa-whatsapp icon-wa"></i>
+                <h2>WhatsApp</h2>
+                <p>للتحدث مباشرة مع خدمة العملاء بخصوص الدورات.</p>
+                <a href="https://wa.me/201279830838" class="btn-contact btn-wa" target="_blank">ارسل رسالة</a>
             </div>
         </div>
     </main>
@@ -115,6 +97,8 @@
                 document.getElementById('authSection').innerHTML = `
                     <span style="color:var(--matrix); font-weight:bold; margin-left:10px;">أهلاً، ${user}</span>
                     <a href="#" onclick="logout()" style="color:#ff3333; text-decoration:none;">[خروج]</a>`;
+            } else {
+                document.getElementById('authSection').innerHTML = `<a href="login.html" style="color:var(--matrix); text-decoration:none;">تسجيل دخول</a>`;
             }
         }
         function logout() { localStorage.removeItem('user_name'); location.reload(); }
