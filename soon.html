@@ -3,86 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESLAM | قريباً</title>
+    <title>قريباً | Eslam_Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="style.css">
-
     <style>
-        /* تنسيقات خاصة بصفحة الانتظار */
-        .soon-wrapper {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
+        :root { --matrix: #00ff00; --card-bg: rgba(10, 10, 10, 0.98); }
+        body { background: #000; color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; min-height: 100vh; overflow-x: hidden; }
+        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; }
+
+        /* الهيدر المتجاوب */
+        header { background: rgba(0,0,0,0.85); border-bottom: 1px solid #111; position: sticky; top: 0; z-index: 100; min-height: 70px; display: flex; align-items: center; }
+        .header-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.4rem; font-weight: 900; color: var(--matrix); text-decoration: none; }
+
+        /* حاوية المحتوى */
+        .soon-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - 150px); padding: 20px; text-align: center; }
+        .soon-card { background: var(--card-bg); border: 1px solid var(--matrix); padding: 40px 20px; border-radius: 20px; box-shadow: 0 0 30px rgba(0,255,0,0.1); width: 100%; max-width: 600px; }
+        
+        h1 { color: var(--matrix); font-size: 2.5rem; margin-bottom: 10px; font-weight: 900; }
+        p { color: #888; margin-bottom: 30px; font-size: 1.1rem; }
+
+        /* العداد التنازلي */
+        .timer-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+        .timer-unit { background: rgba(255,255,255,0.05); border: 1px solid #222; padding: 15px; border-radius: 12px; min-width: 70px; }
+        .timer-unit span { display: block; font-size: 2rem; font-weight: 900; color: var(--matrix); }
+        .timer-unit label { font-size: 0.8rem; color: #666; }
+
+        .btn-back { display: inline-block; padding: 12px 30px; background: var(--matrix); color: #000; text-decoration: none; border-radius: 8px; font-weight: 900; transition: 0.3s; }
+        .btn-back:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--matrix); }
+
+        /* --- تعديلات الموبايل الجامدة --- */
+        @media (max-width: 500px) {
+            h1 { font-size: 1.8rem; }
+            .timer-container { gap: 8px; }
+            .timer-unit { padding: 10px 5px; min-width: 60px; }
+            .timer-unit span { font-size: 1.4rem; }
+            .timer-unit label { font-size: 0.7rem; }
+            .header-container { flex-direction: column; gap: 10px; }
         }
 
-        .terminal-box {
-            background: var(--card-bg);
-            border: 1px solid var(--matrix);
-            padding: 50px 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
-        }
-
-        .terminal-box i {
-            font-size: 4rem;
-            color: var(--matrix);
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
-        }
-
-        .loading-bar {
-            width: 100%;
-            height: 4px;
-            background: #111;
-            margin: 25px 0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .loading-progress {
-            width: 65%;
-            height: 100%;
-            background: var(--matrix);
-            box-shadow: 0 0 10px var(--matrix);
-            animation: loading 3s infinite ease-in-out;
-        }
-
-        @keyframes loading {
-            0% { width: 0%; }
-            50% { width: 70%; }
-            100% { width: 100%; }
-        }
-
-        .btn-back {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 30px;
-            border: 1px solid var(--matrix);
-            color: var(--matrix);
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .btn-back:hover {
-            background: var(--matrix);
-            color: #000;
-        }
+        footer { text-align: center; padding: 20px; color: #444; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -90,47 +50,52 @@
 
     <header>
         <div class="header-container">
-            <a href="index.html" class="logo">ESLAM_ROOT</a>
-            <nav>
-                <a href="index.html">الرئيسية</a>
-                <a href="courses.html">الدورات</a>
-                <a href="tools.html">الأدوات</a>
-                <a href="contact.html">تواصل معنا</a>
-            </nav>
+            <a href="index.html" class="logo">ESLAM_ACADEMY</a>
+            <div id="authSection" style="font-size: 0.9rem;"></div>
         </div>
     </header>
 
-    <div class="container soon-wrapper">
-        <div class="terminal-box">
-            <i class="fas fa-user-ninja"></i>
-            <h1 style="color: var(--matrix); margin-bottom: 15px;">[ جاري حقن البيانات... ]</h1>
-            <p style="color: #888;">هذه المنطقة قيد التطوير حالياً. سيتم إطلاق محتوى احترافي جديد هنا قريباً جداً، انتظرونا.</p>
-            
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
-            </div>
+    <div class="container">
+        <div class="soon-wrapper">
+            <div class="soon-card">
+                <i class="fas fa-user-secret" style="font-size: 4rem; color: var(--matrix); margin-bottom: 20px;"></i>
+                <h1>فحص الأنظمة..</h1>
+                <p>هذا القسم قيد التشفير وسيتم إطلاقه قريباً</p>
 
-            <a href="index.html" class="btn-back"><i class="fas fa-arrow-right"></i> العودة للمقر الرئيسي</a>
+                <div class="timer-container">
+                    <div class="timer-unit">
+                        <span id="days">00</span>
+                        <label>يوم</label>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="hours">00</span>
+                        <label>ساعة</label>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="minutes">00</span>
+                        <label>دقيقة</label>
+                    </div>
+                    <div class="timer-unit">
+                        <span id="seconds">00</span>
+                        <label>ثانية</label>
+                    </div>
+                </div>
+
+                <a href="index.html" class="btn-back"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
+            </div>
         </div>
     </div>
 
-    <footer>
-        <div class="footer-grid" style="justify-items: center; text-align: center;">
-            <div class="footer-section">
-                <h3>ESLAM_ROOT SYSTEM</h3>
-                <p>تشفير كامل | حماية قصوى | تعليم مستمر</p>
-                <p style="color: var(--matrix); margin-top: 10px;">2026 &copy; جميع الحقوق محفوظة</p>
-            </div>
-        </div>
-    </footer>
+    <footer>&copy; 2026 Eslam_Academy | جميع الحقوق محفوظة</footer>
 
     <script>
+        // تأثير الماتريكس
         const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
         function setSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         setSize(); window.onresize = setSize;
         const drops = Array(Math.floor(canvas.width/20)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
             drops.forEach((y, i) => {
                 ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
@@ -138,6 +103,25 @@
                 drops[i]++;
             });
         } setInterval(draw, 35);
+
+        // نظام العداد التنازلي
+        const targetDate = new Date().getTime() + (10 * 24 * 60 * 60 * 1000); 
+        function updateTimer() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        } setInterval(updateTimer, 1000);
+
+        // فحص المستخدم
+        window.onload = function() {
+            const user = localStorage.getItem('user_name');
+            if (user) {
+                document.getElementById('authSection').innerHTML = `<span style="color:var(--matrix)">SUDO: ${user}</span>`;
+            }
+        }
     </script>
 </body>
 </html>
