@@ -3,108 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta name="google-site-verification" content="_irvj7bbBBCcv_4G05hwnmTCOPRPhtMwFt2yzq5Nn3o" />
-
-    <title>ESLAM_ROOT | بوابة الاحتراف في الأمن السيبراني و Red Teaming</title>
-    <meta name="description" content="منصة ESLAM_ROOT لتعلم أساليب الـ Red Teaming واختبار الاختراق المتقدم. دورات احترافية في الأمن السيبراني يقدمها إسلام روت.">
-    <meta name="keywords" content="eslam root, eslam, اسلام روت, اختراق اخلاقي, Red Teaming, امن سيبراني, تعليم هكر اخلاقي, Digital Hell">
-    <meta name="author" content="Eslam Root">
-    
-    <meta property="og:title" content="ESLAM_ROOT | بوابة الاحتراف في الأمن السيبراني">
-    <meta property="og:description" content="تعلم كواليس الأنظمة الرقمية وكيفية حمايتها مع ESLAM_ROOT.">
-    <meta property="og:url" content="https://eslam-root.vercel.app/">
-    <meta property="og:type" content="website">
-
+    <title>Eslam_Academy | بوابة الاحتراف</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="style.css">
-    
     <style>
-        /* تنسيقات خاصة فقط بهذه الصفحة (الواجهة الرئيسية) */
-        .hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 100px 20px; }
-        .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); color: var(--matrix); margin-bottom: 20px; }
-        .hero p { color: #888; max-width: 750px; margin-bottom: 40px; }
-        .btn-main { padding: 15px 45px; border: 2px solid var(--matrix); color: var(--matrix); text-decoration: none; font-weight: 900; border-radius: 5px; transition: 0.4s; }
-        .btn-main:hover { background: var(--matrix); color: #000; box-shadow: 0 0 40px var(--matrix); }
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 80px; }
-        .feat-card { background: var(--card-bg); border: 1px solid #111; padding: 40px 20px; border-radius: 12px; text-align: center; }
-        .feat-card i { font-size: 3rem; color: var(--matrix); margin-bottom: 20px; }
+        :root { --matrix: #00ff00; --card-bg: rgba(10, 10, 10, 0.95); }
+        body { background: #000; color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; overflow-x: hidden; }
+        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* الهيدر والملاحة */
+        header { background: rgba(0,0,0,0.8); border-bottom: 1px solid #111; position: sticky; top: 0; z-index: 100; }
+        header .header-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: var(--matrix); text-decoration: none; letter-spacing: 2px; }
+        
+        nav { display: flex; gap: 25px; align-items: center; }
+        nav a { color: #fff; text-decoration: none; font-weight: 700; transition: 0.3s; font-size: 1rem; }
+        nav a:hover { color: var(--matrix); }
+
+        .auth-buttons { display: flex; gap: 15px; }
+        .btn-auth { padding: 8px 20px; border: 1px solid var(--matrix); color: var(--matrix); text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; }
+        .btn-auth:hover { background: var(--matrix); color: #000; box-shadow: 0 0 15px var(--matrix); }
+
+        /* قسم الترحيب الرئيسي */
+        .hero { height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .hero h1 { font-size: 4rem; margin: 0; color: #fff; text-transform: uppercase; }
+        .hero p { font-size: 1.5rem; color: var(--matrix); font-family: 'Courier New', monospace; margin-top: 10px; }
+        
+        /* تأثير الكتابة */
+        .typing-container { min-height: 1.6em; }
+
+        /* تحسين التجاوب للموبايل (الجزء الجامد) */
+        @media (max-width: 768px) {
+            header .header-container { flex-direction: column; gap: 15px; padding: 10px; }
+            nav { gap: 12px; flex-wrap: wrap; justify-content: center; }
+            nav a { font-size: 0.9rem; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .auth-buttons { width: 100%; justify-content: center; }
+            .btn-auth { padding: 6px 15px; font-size: 0.85rem; }
+            .logo { font-size: 1.5rem; }
+        }
+
+        /* أنيميشن الاهتزاز */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .shake-animation { animation: shake 0.2s ease-in-out 0s 2; border: 2px solid #ff3333 !important; }
+
+        .user-welcome { color: var(--matrix); font-weight: 900; margin-left: 15px; display: flex; align-items: center; gap: 8px; }
+        .logout-link { color: #ff3333; text-decoration: none; font-weight: bold; border: 1px solid #ff3333; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
     <canvas id="matrix"></canvas>
 
     <header>
-        <div class="header-container">
-            <a href="index.html" class="logo">ESLAM_ROOT</a>
+        <div class="container header-container">
+            <a href="index.html" class="logo">ESLAM_ACADEMY</a>
             <nav>
                 <a href="index.html" style="color: var(--matrix);">الرئيسية</a>
                 <a href="courses.html">الدورات</a>
-                <a href="tools.html">الأدوات</a>
-                <a href="contact.html">تواصل معنا</a>
+                <a href="#" onclick="protectedLink('tools.html')">الأدوات</a>
+                <a href="#" onclick="protectedLink('library.html')">المكتبة</a>
+                <a href="contact.html">تواصل</a>
             </nav>
+            <div class="auth-buttons" id="authSection">
+                <a href="login.html" class="btn-auth">دخول</a>
+                <a href="register.html" class="btn-auth" style="background: var(--matrix); color: #000;">انضمام</a>
+            </div>
         </div>
     </header>
 
-    <div class="container">
-        <main class="hero">
+    <main class="container">
+        <section class="hero">
             <h1 id="typing"></h1>
-            <p>نظام احترافي متكامل لتعلم أساليب الـ Red Teaming واختبار الاختراق المتقدم تحت إشراف ESLAM_ROOT. انضم الآن لتعلم كواليس الأنظمة الرقمية.</p>
-            <a href="courses.html" class="btn-main">ابدأ رحلة التعلم</a>
-        </main>
-
-        <section class="features">
-            <div class="feat-card">
-                <i class="fas fa-user-secret"></i>
-                <h3>محاكاة الواقع</h3>
-                <p>تدريب عملي على اختراق بيئات حقيقية وسيناريوهات متقدمة مع إسلام روت.</p>
-            </div>
-            <div class="feat-card">
-                <i class="fas fa-shield-virus"></i>
-                <h3>أمن الأنظمة</h3>
-                <p>اكتشاف الثغرات الصفرية وإغلاقها قبل استغلالها من قبل المهاجمين.</p>
-            </div>
-            <div class="feat-card">
-                <i class="fas fa-satellite-dish"></i>
-                <h3>دعم مستمر</h3>
-                <p>مجتمع تقني متكامل لدعمك في مسارك المهني داخل ESLAM ROOT.</p>
+            <p>> مدرسة صناعة النخبة في الأمن السيبراني _</p>
+            <div style="margin-top: 40px; display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+                <a href="courses.html" class="btn-auth" style="padding: 15px 40px; font-size: 1.2rem;">استكشاف المسارات</a>
             </div>
         </section>
-    </div>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-section">
-                <h3>عن البوابة</h3>
-                <p>أكاديمية ESLAM_ROOT تهدف لتخريج كوادر عربية قادرة على مواجهة التحديات السيبرانية.</p>
-            </div>
-            <div class="footer-section">
-                <h3>روابط سريعة</h3>
-                <ul style="list-style: none;">
-                    <li><a href="terms.html" style="color: #888; text-decoration: none;">الشروط والأحكام</a></li>
-                    <li><a href="terms.html" style="color: #888; text-decoration: none;">سياسة الخصوصية</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>تواصل مباشر</h3>
-                <p style="color: var(--matrix);">eslamatia782@gmail.com</p>
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 40px; color: #444; font-size: 0.8rem;">
-            &copy; 2026 ESLAM_ROOT | All Rights Reserved.
-        </div>
-    </footer>
+    </main>
 
     <script>
-        // سكربت الماتريكس
+        // تأثير الماتريكس
         const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
         function setSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         setSize(); window.onresize = setSize;
         const drops = Array(Math.floor(canvas.width/20)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
             drops.forEach((y, i) => {
                 ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
@@ -113,18 +103,37 @@
             });
         } setInterval(draw, 35);
 
-        // سكربت الكتابة
-        const text = "WELCOME TO ESLAM_ROOT";
+        // نظام الحماية
+        function protectedLink(targetUrl) {
+            const user = localStorage.getItem('user_name');
+            const authSection = document.getElementById('authSection');
+            if (!user) {
+                authSection.classList.add('shake-animation');
+                alert("⚠️ تنبيه أمني: يرجى تسجيل الدخول أو إنشاء حساب للوصول لهذا القسم.");
+                setTimeout(() => authSection.classList.remove('shake-animation'), 500);
+            } else { window.location.href = targetUrl; }
+        }
+
+        window.onload = function() {
+            const savedUser = localStorage.getItem('user_name');
+            if (savedUser) {
+                document.getElementById('authSection').innerHTML = `
+                    <div class="user-welcome"><i class="fas fa-user-secret"></i> أهلاً، ${savedUser}</div>
+                    <a href="#" onclick="logout()" class="logout-link">خروج</a>`;
+            }
+            typeEffect();
+        }
+
+        function logout() { localStorage.removeItem('user_name'); location.reload(); }
+
+        const text = "WELCOME TO Eslam_Academy";
         let index = 0;
         function typeEffect() {
             if (index < text.length) {
                 document.getElementById("typing").innerHTML += text.charAt(index);
-                index++;
-                setTimeout(typeEffect, 100);
-            } else {
-                setTimeout(() => { document.getElementById("typing").innerHTML = ""; index = 0; typeEffect(); }, 4000);
+                index++; setTimeout(typeEffect, 100);
             }
-        } window.onload = typeEffect;
+        }
     </script>
 </body>
 </html>
