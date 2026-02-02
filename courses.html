@@ -3,162 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESLAM | Courses</title>
+    <title>الدورات التدريبية | Eslam_Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="style.css">
-
     <style>
-        /* تنسيقات خاصة بصفحة الكورسات */
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            padding: 40px 0;
+        :root { --matrix: #00ff00; --card-bg: rgba(10, 10, 10, 0.95); }
+        body { background: #000; color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; overflow-x: hidden; }
+        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* الهيدر الموحد المتجاوب */
+        header { background: rgba(0,0,0,0.85); border-bottom: 1px solid #111; position: sticky; top: 0; z-index: 100; min-height: 80px; display: flex; align-items: center; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 0; }
+        .logo { font-size: 1.6rem; font-weight: 900; color: var(--matrix); text-decoration: none; letter-spacing: 1px; }
+        
+        nav { display: flex; gap: 20px; align-items: center; }
+        nav a { font-size: 1rem; font-weight: 700; color: #fff; text-decoration: none; transition: 0.3s; }
+        nav a:hover { color: var(--matrix); }
+
+        .auth-buttons { display: flex; gap: 10px; align-items: center; }
+
+        /* المحتوى الرئيسي */
+        .page-header { text-align: center; padding: 40px 0; }
+        .page-header h1 { font-size: 2.8rem; color: var(--matrix); margin-bottom: 10px; }
+        .page-header p { color: #ccc; font-size: 1.1rem; }
+        
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; padding-bottom: 40px; }
+        .course-card { background: var(--card-bg); border: 1px solid #222; border-radius: 12px; overflow: hidden; transition: 0.4s; position: relative; }
+        .course-card:hover { border-color: var(--matrix); transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,255,0,0.1); }
+        .course-img { width: 100%; height: 180px; background: #111; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--matrix); border-bottom: 1px solid #222; }
+        .course-info { padding: 25px; }
+        .course-info h3 { margin: 0 0 10px 0; font-size: 1.4rem; color: #fff; }
+        .course-info p { color: #aaa; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+        
+        .btn-enroll { display: block; width: 100%; padding: 12px; border: 1px solid var(--matrix); color: var(--matrix); text-decoration: none; text-align: center; border-radius: 6px; font-weight: bold; transition: 0.3s; box-sizing: border-box; }
+        .btn-enroll:hover { background: var(--matrix); color: #000; }
+
+        /* الترقيم */
+        .pagination { text-align: center; padding: 40px 0; display: flex; justify-content: center; gap: 15px; }
+        .page-link { padding: 12px 25px; border: 1px solid #333; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold; transition: 0.3s; }
+        .page-link.active { background: var(--matrix); color: #000; border-color: var(--matrix); }
+        .page-link:hover:not(.active) { border-color: var(--matrix); color: var(--matrix); }
+
+        /* --- الأبعاد الجامدة للموبايل --- */
+        @media (max-width: 768px) {
+            header { height: auto; padding: 15px 0; }
+            .header-container { flex-direction: column; gap: 15px; text-align: center; }
+            nav { gap: 12px; flex-wrap: wrap; justify-content: center; }
+            nav a { font-size: 0.9rem; }
+            .page-header h1 { font-size: 1.9rem; }
+            .page-header p { font-size: 0.95rem; padding: 0 10px; }
+            .courses-grid { grid-template-columns: 1fr; padding: 0 10px; }
+            .logo { font-size: 1.4rem; }
         }
 
-        .course-card {
-            background: var(--card-bg);
-            border: 1px solid #111;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .course-card:hover {
-            border-color: var(--matrix);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 255, 0, 0.1);
-        }
-
-        .course-img {
-            width: 100%;
-            height: 180px;
-            background: #050505;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid #111;
-        }
-
-        .course-img i { font-size: 4rem; color: var(--matrix); opacity: 0.5; }
-
-        .course-info { padding: 20px; flex: 1; }
-        .course-info h3 { color: var(--matrix); margin-bottom: 10px; font-size: 1.2rem; }
-        .course-info p { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; }
-
-        .btn-course {
-            display: block;
-            text-align: center;
-            padding: 10px;
-            background: transparent;
-            border: 1px solid var(--matrix);
-            color: var(--matrix);
-            text-decoration: none;
-            border-radius: 5px;
-            transition: 0.3s;
-            font-weight: bold;
-        }
-
-        .btn-course:hover { background: var(--matrix); color: #000; }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 40px 0;
-        }
-
-        .pagination a {
-            padding: 8px 15px;
-            border: 1px solid #333;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 4px;
-        }
-
-        .pagination a.active { background: var(--matrix); color: #000; border-color: var(--matrix); }
+        footer { background: #050505; border-top: 1px solid #111; padding: 30px 0; text-align: center; color: #666; font-size: 0.9rem; }
     </style>
 </head>
 <body>
     <canvas id="matrix"></canvas>
 
     <header>
-        <div class="header-container">
-            <a href="index.html" class="logo">ESLAM_ROOT</a>
+        <div class="container header-container">
+            <a href="index.html" class="logo">ESLAM_ACADEMY</a>
             <nav>
                 <a href="index.html">الرئيسية</a>
                 <a href="courses.html" style="color: var(--matrix);">الدورات</a>
                 <a href="tools.html">الأدوات</a>
-                <a href="contact.html">تواصل معنا</a>
+                <a href="library.html">المكتبة</a>
             </nav>
+            <div class="auth-buttons" id="authSection"></div>
         </div>
     </header>
 
-    <div class="container">
-        <div style="text-align: center; margin-top: 50px;">
-            <h1 style="color: var(--matrix); font-size: 2.5rem;">دبلومات الأمن السيبراني</h1>
-            <p style="color: #666;">اختر مسارك التعليمي وابدأ في احتراف الـ Red Teaming</p>
+    <div class="container" id="protectedContent" style="display: none;">
+        <div class="page-header">
+            <h1>مسارات النخبة</h1>
+            <p>اختر تخصصك وابدأ رحلة السيطرة الرقمية</p>
         </div>
 
         <div class="courses-grid">
             <div class="course-card">
-                <div class="course-img"><i class="fas fa-terminal"></i></div>
+                <div class="course-img"><i class="fas fa-user-secret"></i></div>
                 <div class="course-info">
-                    <h3>اختبار اختراق تطبيقات الويب</h3>
-                    <p>تعلم كيفية اكتشاف ثغرات الـ SQLi, XSS, و SSRF بأسلوب عملي متقدم.</p>
-                    <a href="soon.html" class="btn-course">تفاصيل الدورة</a>
+                    <h3>اختراق الأخلاقي (CEH)</h3>
+                    <p>تعلم أساسيات الاختراق القانوني وكيفية حماية الأنظمة من الثغرات.</p>
+                    <a href="soon.html" class="btn-enroll">فتح المحتوى</a>
                 </div>
             </div>
-
             <div class="course-card">
-                <div class="course-img"><i class="fas fa-network-wired"></i></div>
+                <div class="course-img"><i class="fas fa-shield-alt"></i></div>
                 <div class="course-info">
-                    <h3>اختبار اختراق الشبكات</h3>
-                    <p>السيطرة على الدومين كنترولر (AD) وفهم بروتوكولات الشبكات العميقة.</p>
-                    <a href="soon.html" class="btn-course">تفاصيل الدورة</a>
+                    <h3>أمن الشبكات</h3>
+                    <p>تحليل ترافيك الشبكة وإيقاف الهجمات المعقدة وحماية الخوادم.</p>
+                    <a href="soon.html" class="btn-enroll">فتح المحتوى</a>
                 </div>
             </div>
-
             <div class="course-card">
-                <div class="course-img"><i class="fas fa-bug"></i></div>
+                <div class="course-img"><i class="fas fa-code"></i></div>
                 <div class="course-info">
-                    <h3>تحليل البرمجيات الخبيثة</h3>
-                    <p>فهم كيفية عمل الفيروسات وطرق الهندسة العكسية للملفات التنفيذية.</p>
-                    <a href="soon.html" class="btn-course">تفاصيل الدورة</a>
+                    <h3>برمجة الأدوات</h3>
+                    <p>تعلم لغة بايثون لبناء أدوات اختراق وفحص ثغرات خاصة بك.</p>
+                    <a href="soon.html" class="btn-enroll">فتح المحتوى</a>
                 </div>
             </div>
         </div>
 
         <div class="pagination">
-            <a href="courses.html" class="active">1</a>
-            <a href="courses2.html">2</a>
-            <a href="soon.html">3</a>
+            <a href="courses.html" class="page-link active">1</a>
+            <a href="courses2.html" class="page-link">2</a>
         </div>
     </div>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-section">
-                <h3>عن البوابة</h3>
-                <p>أكاديمية متخصصة في تدريس أساليب الـ Red Teaming واختبار الاختراق.</p>
-            </div>
-            <div class="footer-section">
-                <h3>روابط سريعة</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li><a href="terms.html" style="color: #888; text-decoration: none;">الشروط والأحكام</a></li>
-                    <li><a href="contact.html" style="color: #888; text-decoration: none;">الدعم الفني</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>تواصل آمن</h3>
-                <p style="color: var(--matrix);">eslamatia782@gmail.com</p>
-            </div>
-        </div>
-    </footer>
+    <footer>&copy; 2026 Eslam_Academy | جميع الحقوق محفوظة</footer>
 
     <script>
         const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
@@ -166,7 +123,7 @@
         setSize(); window.onresize = setSize;
         const drops = Array(Math.floor(canvas.width/20)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
             drops.forEach((y, i) => {
                 ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
@@ -174,6 +131,20 @@
                 drops[i]++;
             });
         } setInterval(draw, 35);
+
+        window.onload = function() {
+            const user = localStorage.getItem('user_name');
+            if (!user) {
+                alert("⚠️ تنبيه: هذه الصفحة مخصصة للأعضاء فقط. يرجى تسجيل الدخول.");
+                window.location.href = "login.html";
+            } else {
+                document.getElementById('protectedContent').style.display = 'block';
+                document.getElementById('authSection').innerHTML = `
+                    <span style="color:var(--matrix); font-weight:bold; margin-left:15px;">المستخدم: ${user}</span>
+                    <a href="#" onclick="logout()" style="color:#ff3333; text-decoration:none; font-weight:bold;">[خروج]</a>`;
+            }
+        }
+        function logout() { localStorage.removeItem('user_name'); location.reload(); }
     </script>
 </body>
 </html>
