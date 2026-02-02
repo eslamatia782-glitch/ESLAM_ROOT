@@ -3,115 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESLAM | Contact</title>
+    <title>تواصل معنا | Eslam_Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="style.css">
-
     <style>
-        /* تنسيقات خاصة بصفحة التواصل */
-        :root { --tg: #26A5E4; --wa: #25D366; }
-        
-        .contact-header { text-align: center; margin-top: 50px; margin-bottom: 40px; }
-        .contact-header h1 { color: var(--matrix); font-size: 2.5rem; }
-        .contact-header p { color: #888; }
+        :root { --matrix: #00ff00; --card-bg: rgba(10, 10, 10, 0.95); --tg: #26A5E4; --wa: #25D366; }
+        body { background: #000; color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; overflow-x: hidden; }
+        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
+        /* الهيدر المتجاوب */
+        header { background: rgba(0,0,0,0.85); border-bottom: 1px solid #111; position: sticky; top: 0; z-index: 100; min-height: 80px; display: flex; align-items: center; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 0; }
+        .logo { font-size: 1.6rem; font-weight: 900; color: var(--matrix); text-decoration: none; }
+        
+        nav { display: flex; gap: 20px; }
+        nav a { color: #fff; text-decoration: none; font-weight: 700; transition: 0.3s; }
+        nav a:hover { color: var(--matrix); }
+
+        /* قسم المحتوى */
+        .contact-header { text-align: center; padding: 50px 0 30px; }
+        .contact-header h1 { font-size: 2.5rem; color: var(--matrix); margin-bottom: 15px; }
+        .contact-header p { color: #ccc; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0; }
+        .contact-card { background: var(--card-bg); border: 1px solid #222; border-radius: 15px; padding: 35px; text-align: center; transition: 0.4s; }
+        .contact-card:hover { border-color: var(--matrix); transform: translateY(-8px); }
+        
+        .icon-box { font-size: 4rem; margin-bottom: 20px; }
+        .tg-icon { color: var(--tg); }
+        .wa-icon { color: var(--wa); }
+
+        .btn-contact { display: block; padding: 15px; border-radius: 8px; text-decoration: none; font-weight: 900; font-size: 1.1rem; transition: 0.3s; color: #fff; }
+        .btn-tg { background: var(--tg); }
+        .btn-tg:hover { background: #1c8adb; box-shadow: 0 0 20px rgba(38, 165, 228, 0.4); }
+        .btn-wa { background: var(--wa); }
+        .btn-wa:hover { background: #1ebe57; box-shadow: 0 0 20px rgba(37, 211, 102, 0.4); }
+
+        /* --- الأبعاد الجامدة للموبايل --- */
+        @media (max-width: 768px) {
+            header { height: auto; padding: 15px 0; }
+            .header-container { flex-direction: column; gap: 15px; text-align: center; }
+            nav { gap: 12px; flex-wrap: wrap; justify-content: center; }
+            .contact-header h1 { font-size: 1.9rem; }
+            .contact-grid { grid-template-columns: 1fr; padding: 0 10px; }
+            .contact-card { padding: 25px; }
         }
 
-        .contact-card {
-            background: var(--card-bg);
-            border: 1px solid #111;
-            padding: 40px 20px;
-            border-radius: 15px;
-            transition: 0.4s;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .contact-card i { font-size: 3rem; }
-        .contact-card h3 { color: #fff; font-size: 1.4rem; }
-        .contact-card p { color: #aaa; font-size: 0.9rem; }
-
-        .tg-card i { color: var(--tg); }
-        .tg-card:hover { border-color: var(--tg); box-shadow: 0 0 20px rgba(38, 165, 228, 0.2); transform: translateY(-10px); }
-        
-        .wa-card i { color: var(--wa); }
-        .wa-card:hover { border-color: var(--wa); box-shadow: 0 0 20px rgba(37, 211, 102, 0.2); transform: translateY(-10px); }
-        
-        .mail-card i { color: var(--matrix); }
-        .mail-card:hover { border-color: var(--matrix); box-shadow: 0 0 20px rgba(0, 255, 0, 0.2); transform: translateY(-10px); }
+        footer { text-align: center; padding: 40px; color: #555; border-top: 1px solid #111; margin-top: 50px; }
     </style>
 </head>
 <body>
     <canvas id="matrix"></canvas>
 
     <header>
-        <div class="header-container">
-            <a href="index.html" class="logo">ESLAM_ROOT</a>
+        <div class="container header-container">
+            <a href="index.html" class="logo">ESLAM_ACADEMY</a>
             <nav>
                 <a href="index.html">الرئيسية</a>
                 <a href="courses.html">الدورات</a>
                 <a href="tools.html">الأدوات</a>
-                <a href="contact.html" style="color: var(--matrix);">تواصل معنا</a>
+                <a href="contact.html" style="color: var(--matrix);">تواصل</a>
             </nav>
+            <div id="authSection"></div>
         </div>
     </header>
 
-    <div class="container">
+    <main class="container">
         <div class="contact-header">
-            <h1>قنوات التواصل الآمن</h1>
-            <p>لأي استفسار بخصوص الدورات أو للإبلاغ عن مشكلة تقنية، يمكنك التواصل مباشرة:</p>
+            <h1>تواصل مع الدعم الفني</h1>
+            <p>لأي استفسارات بخصوص الدورات أو مشاكل في الحساب، فريقنا جاهز للرد عليك عبر المنصات التالية:</p>
         </div>
 
         <div class="contact-grid">
-            <a href="https://t.me/eng_islam_attia" class="contact-card tg-card" target="_blank">
-                <i class="fab fa-telegram"></i>
-                <h3>Telegram</h3>
-                <p>@eng_islam_attia</p>
-            </a>
-
-            <a href="https://wa.me/qr/VM3JH3U3ERNYL1" class="contact-card wa-card" target="_blank">
-                <i class="fab fa-whatsapp"></i>
-                <h3>WhatsApp</h3>
-                <p>مراسلة مباشرة</p>
-            </a>
-
-            <a href="mailto:eslamatia782@gmail.com" class="contact-card mail-card">
-                <i class="fas fa-envelope-open-text"></i>
-                <h3>E-Mail</h3>
-                <p>eslamatia782@gmail.com</p>
-            </a>
-        </div>
-    </div>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-section">
-                <h3>عن البوابة</h3>
-                <p>أكاديمية متخصصة في تدريس أساليب الـ Red Teaming واختبار الاختراق المتقدم.</p>
+            <div class="contact-card">
+                <div class="icon-box tg-icon"><i class="fab fa-telegram"></i></div>
+                <h3>قناة التليجرام</h3>
+                <p>تابع آخر التحديثات والأدوات المسربة يومياً.</p>
+                <a href="https://t.me/Eslam_Root" class="btn-contact btn-tg" target="_blank">انضم للقناة</a>
             </div>
-            <div class="footer-section">
-                <h3>روابط سريعة</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li><a href="terms.html" style="color: #888; text-decoration: none;">الشروط والأحكام</a></li>
-                    <li><a href="contact.html" style="color: #888; text-decoration: none;">الدعم الفني</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>تواصل آمن</h3>
-                <p style="color: var(--matrix);">eslamatia782@gmail.com</p>
+
+            <div class="contact-card">
+                <div class="icon-box wa-icon"><i class="fab fa-whatsapp"></i></div>
+                <h3>دعم واتساب</h3>
+                <p>تواصل مباشر مع إدارة الأكاديمية للاستفسارات الخاصة.</p>
+                <a href="https://wa.me/201016844390" class="btn-contact btn-wa" target="_blank">ارسل رسالة</a>
             </div>
         </div>
-    </footer>
+    </main>
+
+    <footer>&copy; 2026 Eslam_Academy | جميع الحقوق محفوظة</footer>
 
     <script>
         const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
@@ -119,7 +100,7 @@
         setSize(); window.onresize = setSize;
         const drops = Array(Math.floor(canvas.width/20)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
             drops.forEach((y, i) => {
                 ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
@@ -127,6 +108,16 @@
                 drops[i]++;
             });
         } setInterval(draw, 35);
+
+        window.onload = function() {
+            const user = localStorage.getItem('user_name');
+            if (user) {
+                document.getElementById('authSection').innerHTML = `
+                    <span style="color:var(--matrix); font-weight:bold; margin-left:10px;">أهلاً، ${user}</span>
+                    <a href="#" onclick="logout()" style="color:#ff3333; text-decoration:none;">[خروج]</a>`;
+            }
+        }
+        function logout() { localStorage.removeItem('user_name'); location.reload(); }
     </script>
 </body>
 </html>
