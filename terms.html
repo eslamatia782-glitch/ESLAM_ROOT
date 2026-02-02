@@ -3,91 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESLAM | Terms of Service</title>
+    <title>الشروط والخصوصية | Eslam_Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="style.css">
-
     <style>
-        /* تنسيقات خاصة بصفحة الشروط */
-        .terms-header { text-align: center; margin-top: 50px; margin-bottom: 50px; }
-        .terms-header i { font-size: 4rem; color: var(--matrix); margin-bottom: 20px; opacity: 0.8; }
-        .terms-header h1 { font-size: 2.5rem; color: var(--matrix); }
+        :root { --matrix: #00ff00; --card-bg: rgba(10, 10, 10, 0.95); }
+        body { background: #000; color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; overflow-x: hidden; }
+        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        
+        /* الهيدر المتجاوب */
+        header { background: rgba(0,0,0,0.85); border-bottom: 1px solid #111; position: sticky; top: 0; z-index: 100; min-height: 80px; display: flex; align-items: center; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 0; }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--matrix); text-decoration: none; }
+        
+        nav { display: flex; gap: 15px; }
+        nav a { color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: 0.3s; }
+        nav a:hover { color: var(--matrix); }
 
-        .term-section { 
-            background: var(--card-bg); 
-            border-right: 4px solid var(--matrix); 
-            padding: 30px; 
-            margin-bottom: 25px; 
-            border-radius: 0 10px 10px 0;
-            transition: 0.3s;
+        /* قسم الشروط */
+        .terms-content { background: var(--card-bg); border: 1px solid #222; padding: 30px; border-radius: 15px; margin-top: 30px; }
+        .page-title { color: var(--matrix); text-align: center; margin-bottom: 40px; font-size: 2rem; }
+        
+        .term-section { margin-bottom: 35px; border-right: 3px solid var(--matrix); padding-right: 20px; }
+        .term-section h2 { color: var(--matrix); font-size: 1.4rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .term-section p { color: #ccc; line-height: 1.8; font-size: 1rem; margin: 0; }
+
+        /* --- الأبعاد الجامدة للموبايل --- */
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; gap: 15px; text-align: center; }
+            nav { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .page-title { font-size: 1.6rem; }
+            .terms-content { padding: 20px 15px; }
+            .term-section h2 { font-size: 1.2rem; }
+            .term-section p { font-size: 0.95rem; }
         }
-        .term-section:hover { transform: translateX(-5px); background: rgba(15, 25, 15, 0.95); }
-        .term-section h2 { color: var(--matrix); margin-bottom: 15px; font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
-        .term-section p { color: #ccc; text-align: justify; }
+
+        footer { text-align: center; padding: 30px; color: #555; border-top: 1px solid #111; margin-top: 40px; }
     </style>
 </head>
 <body>
     <canvas id="matrix"></canvas>
 
     <header>
-        <div class="header-container">
-            <a href="index.html" class="logo">ESLAM_ROOT</a>
+        <div class="container header-container" style="max-width: 1200px;">
+            <a href="index.html" class="logo">ESLAM_ACADEMY</a>
             <nav>
                 <a href="index.html">الرئيسية</a>
                 <a href="courses.html">الدورات</a>
                 <a href="tools.html">الأدوات</a>
-                <a href="contact.html">تواصل معنا</a>
+                <a href="terms.html" style="color: var(--matrix);">الشروط</a>
             </nav>
         </div>
     </header>
 
     <div class="container">
-        <div class="terms-header">
-            <i class="fas fa-file-contract"></i>
-            <h1>اتفاقية الاستخدام الآمن</h1>
-            <p style="color: #666;">بروتوكولات الالتزام والخصوصية لمنصة ESLAM_ROOT</p>
-        </div>
+        <main class="terms-content">
+            <h1 class="page-title">اتفاقية الاستخدام والخصوصية</h1>
 
-        <main>
             <section class="term-section">
-                <h2><i class="fas fa-user-check"></i> شروط الاستخدام</h2>
-                <p>جميع الأدوات والكورسات المقدمة في هذا الموقع مخصصة للأغراض التعليمية واختبار الاختراق الأخلاقي فقط. يُحظر تماماً استخدام أي معلومة في إلحاق الضرر بالغير.</p>
+                <h2><i class="fas fa-shield-alt"></i> الغرض التعليمي</h2>
+                <p>كافة الأدوات والكورسات المقدمة في Eslam_Academy مخصصة لأغراض تعليمية وأمنية فقط. نحن نبرأ تماماً من أي استخدام غير قانوني لهذه المعلومات خارج نطاق الحماية والاختبار الأخلاقي.</p>
             </section>
 
             <section class="term-section">
-                <h2><i class="fas fa-user-lock"></i> سياسة الخصوصية</h2>
-                <p>نحن نحترم خصوصيتك بالكامل. لا نقوم بتخزين أي بيانات شخصية حساسة، وجميع سجلات التدريب مشفرة ومحمية داخل بيئة النظام الخاصة بنا.</p>
+                <h2><i class="fas fa-user-lock"></i> حماية البيانات والخصوصية</h2>
+                <p>نلتزم بحماية بياناتك الشخصية (الاسم والبريد) ولا يتم مشاركتها مع أي طرف ثالث. يتم تشفير كافة البيانات المخزنة لضمان خصوصية طلابنا.</p>
             </section>
 
             <section class="term-section">
-                <h2><i class="fas fa-copyright"></i> حقوق الملكية</h2>
-                <p>محتوى الدورات والأدوات البرمجية ملك خاص لـ ESLAM_ROOT. لا يسمح بإعادة نشرها أو بيعها دون إذن كتابي مسبق.</p>
-            </section>
-
-            <section class="term-section">
-                <h2><i class="fas fa-exclamation-triangle"></i> إخلاء المسؤولية</h2>
-                <p>إدارة الموقع غير مسؤولة عن أي سوء استخدام للمعلومات الواردة. تقع المسؤولية الكاملة على عاتق المستخدم في حال تجاوز القوانين.</p>
+                <h2><i class="fas fa-user-slash"></i> سياسة العضوية</h2>
+                <p>يحق لإدارة الأكاديمية إلغاء اشتراك أي طالب يثبت تورطه في محاولات تخريبية للمنصة أو مخالفة اتفاقية الاستخدام دون استرداد الرسوم.</p>
             </section>
         </main>
     </div>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-section">
-                <h3>عن البوابة</h3>
-                <p>أكاديمية متخصصة في تدريس أساليب الـ Red Teaming واختبار الاختراق المتقدم.</p>
-            </div>
-            <div class="footer-section">
-                <h3>تواصل آمن</h3>
-                <p style="color: var(--matrix);">eslamatia782@gmail.com</p>
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 30px; color: #444; font-size: 0.8rem;">
-            &copy; 2026 ESLAM_ROOT | All Rights Reserved.
-        </div>
-    </footer>
+    <footer>&copy; 2026 Eslam_Academy | جميع الحقوق محفوظة</footer>
 
     <script>
         const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
@@ -95,7 +86,7 @@
         setSize(); window.onresize = setSize;
         const drops = Array(Math.floor(canvas.width/20)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
             drops.forEach((y, i) => {
                 ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
