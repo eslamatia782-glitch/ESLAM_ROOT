@@ -3,147 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESLAM | Tools</title>
+    <title>مخزن الأسلحة الرقمية | Eslam_Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="style.css">
-
     <style>
-        /* تنسيقات خاصة بصفحة الأدوات */
-        .tools-header { text-align: center; margin-top: 50px; margin-bottom: 40px; }
-        .tools-header h1 { color: var(--matrix); font-size: 2.5rem; text-shadow: 0 0 15px rgba(0, 255, 0, 0.3); }
-        .tools-header p { color: #888; }
+        :root { --matrix: #00ff00; --card-bg: rgba(10, 10, 10, 0.95); }
+        body { background: #000; color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; overflow-x: hidden; }
+        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            padding-bottom: 60px;
+        /* الهيدر الموحد المتجاوب */
+        header { background: rgba(0,0,0,0.85); border-bottom: 1px solid #111; position: sticky; top: 0; z-index: 100; min-height: 80px; display: flex; align-items: center; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 0; }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--matrix); text-decoration: none; }
+        
+        nav { display: flex; gap: 15px; align-items: center; }
+        nav a { color: #fff; text-decoration: none; font-weight: 700; font-size: 0.95rem; transition: 0.3s; }
+        nav a:hover { color: var(--matrix); }
+
+        .auth-info { display: flex; align-items: center; gap: 10px; }
+
+        /* قسم الأدوات */
+        .page-header { text-align: center; padding: 40px 0; }
+        .page-header h1 { font-size: 2.2rem; color: var(--matrix); margin-bottom: 10px; }
+        
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding-bottom: 50px; }
+        .tool-card { background: var(--card-bg); border: 1px solid #222; border-radius: 12px; padding: 25px; text-align: center; transition: 0.3s; position: relative; overflow: hidden; }
+        .tool-card:hover { border-color: var(--matrix); transform: translateY(-5px); }
+        
+        .tool-card i { font-size: 3rem; color: var(--matrix); margin-bottom: 15px; }
+        .tool-card h3 { margin: 10px 0; font-size: 1.3rem; color: #fff; }
+        .tool-card p { color: #888; font-size: 0.9rem; margin-bottom: 20px; min-height: 40px; }
+        
+        .btn-download { display: block; width: 100%; padding: 12px; background: transparent; border: 1px solid var(--matrix); color: var(--matrix); text-decoration: none; border-radius: 6px; font-weight: bold; transition: 0.3s; box-sizing: border-box; }
+        .btn-download:hover { background: var(--matrix); color: #000; }
+
+        /* شارة الحماية */
+        .secure-badge { position: absolute; top: 10px; right: 10px; font-size: 0.7rem; color: var(--matrix); border: 1px solid var(--matrix); padding: 2px 8px; border-radius: 20px; }
+
+        /* --- الأبعاد الجامدة للموبايل --- */
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; gap: 15px; text-align: center; }
+            nav { gap: 10px; flex-wrap: wrap; justify-content: center; }
+            .page-header h1 { font-size: 1.7rem; }
+            .tools-grid { grid-template-columns: 1fr; } /* أداة واحدة في السطر */
+            .logo { font-size: 1.3rem; }
         }
 
-        .tool-card {
-            background: var(--card-bg);
-            border: 1px solid #111;
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tool-card:hover {
-            border-color: var(--matrix);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 255, 0, 0.1);
-        }
-
-        .tool-card i { font-size: 2.5rem; color: var(--matrix); margin-bottom: 15px; }
-        .tool-card h3 { color: #fff; margin-bottom: 10px; }
-        .tool-card p { color: #777; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; }
-
-        /* تعديل الزر ليكون للعرض فقط */
-        .btn-soon {
-            display: inline-block;
-            padding: 8px 30px;
-            border: 1px solid #333; /* لون باهت للزر */
-            color: #555; /* نص باهت */
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: default; /* يظهر للمستخدم أنه غير قابل للضغط */
-            transition: 0.3s;
-        }
-
-        .status-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 10px;
-            background: rgba(0, 255, 0, 0.05);
-            color: #444;
-            border: 1px solid #222;
-        }
+        footer { background: #050505; border-top: 1px solid #111; padding: 25px 0; text-align: center; color: #555; font-size: 0.85rem; }
     </style>
 </head>
 <body>
     <canvas id="matrix"></canvas>
 
     <header>
-        <div class="header-container">
-            <a href="index.html" class="logo">ESLAM_ROOT</a>
+        <div class="container header-container">
+            <a href="index.html" class="logo">ESLAM_ACADEMY</a>
             <nav>
                 <a href="index.html">الرئيسية</a>
                 <a href="courses.html">الدورات</a>
                 <a href="tools.html" style="color: var(--matrix);">الأدوات</a>
-                <a href="contact.html">تواصل معنا</a>
+                <a href="library.html">المكتبة</a>
             </nav>
+            <div id="authSection" class="auth-info"></div>
         </div>
     </header>
 
-    <div class="container">
-        <div class="tools-header">
-            <h1>ترسانة الأدوات الرقمية</h1>
-            <p>مجموعة من الأدوات والسكربتات المطورة خصيصاً لعمليات اختبار الاختراق.</p>
+    <div class="container" id="protectedContent" style="display: none;">
+        <div class="page-header">
+            <h1>مخزن الأدوات الرقمية</h1>
+            <p>أدوات احترافية لاختبار الاختراق والحماية</p>
         </div>
 
         <div class="tools-grid">
             <div class="tool-card">
-                <span class="status-badge">قيد التطوير</span>
+                <span class="secure-badge"><i class="fas fa-shield-alt"></i> آمن</span>
+                <i class="fas fa-search-location"></i>
+                <h3>فاحص المنافذ (Nmap)</h3>
+                <p>أداة قوية لاستكشاف الشبكات وفحص الثغرات المفتوحة.</p>
+                <a href="soon.html" class="btn-download">تحميل الأداة</a>
+            </div>
+
+            <div class="tool-card">
+                <span class="secure-badge"><i class="fas fa-shield-alt"></i> آمن</span>
+                <i class="fas fa-spider"></i>
+                <h3>محلل الترافيك</h3>
+                <p>مراقبة وتحليل حزم البيانات داخل الشبكة المحلية.</p>
+                <a href="soon.html" class="btn-download">تحميل الأداة</a>
+            </div>
+
+            <div class="tool-card">
+                <span class="secure-badge"><i class="fas fa-shield-alt"></i> آمن</span>
                 <i class="fas fa-user-secret"></i>
-                <h3>Scanner Pro</h3>
-                <p>سكربت متقدم لفحص الثغرات الأمنية في الشبكات المحلية واستخراج التقارير.</p>
-                <span class="btn-soon">قريباً</span>
-            </div>
-
-            <div class="tool-card">
-                <span class="status-badge">قيد التطوير</span>
-                <i class="fas fa-key"></i>
-                <h3>Pass-Breaker</h3>
-                <p>أداة قوية لاختبار قوة كلمات المرور باستخدام هجمات القوة الغاشمة (Brute Force).</p>
-                <span class="btn-soon">قريباً</span>
-            </div>
-
-            <div class="tool-card">
-                <span class="status-badge">قيد التطوير</span>
-                <i class="fas fa-shield-alt"></i>
-                <h3>Firewall Bypass</h3>
-                <p>سكربت مخصص لتخطي جدران الحماية وتحليل حزم البيانات المشفرة.</p>
-                <span class="btn-soon">قريباً</span>
+                <h3>أداة تشفير الملفات</h3>
+                <p>تشفير البيانات الحساسة باستخدام خوارزمية AES-256.</p>
+                <a href="soon.html" class="btn-download">تحميل الأداة</a>
             </div>
         </div>
     </div>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-section">
-                <h3>عن البوابة</h3>
-                <p>أكاديمية متخصصة في تدريس أساليب الـ Red Teaming واختبار الاختراق المتقدم.</p>
-            </div>
-            <div class="footer-section">
-                <h3>روابط سريعة</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li><a href="terms.html" style="color: #888; text-decoration: none;">الشروط والأحكام</a></li>
-                    <li><a href="contact.html" style="color: #888; text-decoration: none;">الدعم الفني</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>تواصل آمن</h3>
-                <p style="color: var(--matrix);">eslamatia782@gmail.com</p>
-            </div>
-        </div>
-    </footer>
+    <footer>&copy; 2026 Eslam_Academy | جميع الحقوق محفوظة لـ إسلام</footer>
 
     <script>
+        // تأثير الماتريكس
         const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
         function setSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         setSize(); window.onresize = setSize;
         const drops = Array(Math.floor(canvas.width/20)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
             drops.forEach((y, i) => {
                 ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
@@ -151,6 +119,21 @@
                 drops[i]++;
             });
         } setInterval(draw, 35);
+
+        // نظام الحماية
+        window.onload = function() {
+            const user = localStorage.getItem('user_name');
+            if (!user) {
+                alert("⚠️ الوصول يتطلب تصريحاً. سجل دخولك أولاً.");
+                window.location.href = "login.html";
+            } else {
+                document.getElementById('protectedContent').style.display = 'block';
+                document.getElementById('authSection').innerHTML = `
+                    <span style="color:var(--matrix); font-weight:bold;">${user}</span>
+                    <a href="#" onclick="logout()" style="color:#ff3333; text-decoration:none; font-size:0.8rem;">[خروج]</a>`;
+            }
+        }
+        function logout() { localStorage.removeItem('user_name'); location.reload(); }
     </script>
 </body>
 </html>
