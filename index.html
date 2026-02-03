@@ -3,98 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eslam_Academy | بوابة الاحتراف</title>
+    <title>ESLAM ACADEMY | Cybersecurity Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --matrix: #00ff00; --card-bg: rgba(10, 10, 10, 0.95); }
-        body { background: #000; color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; overflow-x: hidden; }
-        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        :root { 
+            --matrix: #00ff00; 
+            --matrix-glow: rgba(0, 255, 0, 0.4);
+            --bg: #030303;
+            --glass: rgba(255, 255, 255, 0.02); 
+            --glass-hover: rgba(255, 255, 255, 0.08);
+            --blur: blur(25px); 
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
 
-        /* الهيدر والملاحة */
-        header { background: rgba(0,0,0,0.8); border-bottom: 1px solid #111; position: sticky; top: 0; z-index: 100; }
-        header .header-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
-        .logo { font-size: 1.8rem; font-weight: 900; color: var(--matrix); text-decoration: none; letter-spacing: 2px; }
-        
-        nav { display: flex; gap: 25px; align-items: center; }
-        nav a { color: #fff; text-decoration: none; font-weight: 700; transition: 0.3s; font-size: 1rem; }
-        nav a:hover { color: var(--matrix); }
+        * { box-sizing: border-box; transition: transform 0.3s ease, background 0.3s ease; scroll-behavior: smooth; }
 
-        .auth-buttons { display: flex; gap: 15px; }
-        .btn-auth { padding: 8px 20px; border: 1px solid var(--matrix); color: var(--matrix); text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; }
-        .btn-auth:hover { background: var(--matrix); color: #000; box-shadow: 0 0 15px var(--matrix); }
+        body { 
+            background: var(--bg); color: #fff; margin: 0; 
+            font-family: 'Tajawal', sans-serif; overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-        /* قسم الترحيب الرئيسي */
-        .hero { height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .hero h1 { font-size: 4rem; margin: 0; color: #fff; text-transform: uppercase; }
-        .hero p { font-size: 1.5rem; color: var(--matrix); font-family: 'Courier New', monospace; margin-top: 10px; }
-        
-        /* تأثير الكتابة */
-        .typing-container { min-height: 1.6em; }
+        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.2; }
 
-        /* تحسين التجاوب للموبايل (الجزء الجامد) */
+        /* تعديل أبعاد الهيدر */
+        header { 
+            background: rgba(0, 0, 0, 0.3); backdrop-filter: var(--blur); 
+            border-bottom: 1px solid var(--glass-border); 
+            position: sticky; top: 0; z-index: 1000; padding: 10px 0;
+            min-height: 70px; display: flex; align-items: center;
+        }
+
+        .header-container { 
+            width: 100%; max-width: 1200px; margin: 0 auto; 
+            display: flex; justify-content: space-between; align-items: center; padding: 0 20px; 
+        }
+
+        .logo { font-size: clamp(1.2rem, 5vw, 1.8rem); font-weight: 900; color: #fff; text-decoration: none; }
+        .logo span { color: var(--matrix); text-shadow: 0 0 15px var(--matrix); }
+
+        nav a { 
+            color: #ddd; text-decoration: none; font-weight: 700; font-size: 0.95rem;
+            padding: 8px 15px; border-radius: 12px; margin-right: 5px;
+        }
+        nav a:hover { color: var(--matrix); background: var(--glass-hover); }
+
+        /* تعديل أبعاد منطقة الهيرو */
+        .hero { 
+            height: clamp(500px, 90vh, 800px); 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            text-align: center; padding: 0 20px;
+        }
+
+        .hero h1 { 
+            font-size: clamp(2rem, 8vw, 4.5rem); font-weight: 900; margin: 0;
+            text-shadow: 0 0 30px var(--matrix-glow);
+        }
+
+        .typewriter-container { height: 40px; margin-top: 10px; }
+        #typewriter { font-size: clamp(1rem, 4vw, 1.5rem); color: var(--matrix); font-weight: bold; letter-spacing: 2px; }
+
+        /* تعديل أبعاد الكروت */
+        .section-padding { padding: 80px 0; }
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px; max-width: 1200px; margin: 0 auto; padding: 0 20px;
+        }
+
+        .card { 
+            background: var(--glass); backdrop-filter: var(--blur); 
+            border: 1px solid var(--glass-border); border-radius: 25px; 
+            padding: 40px 30px; text-align: center; position: relative;
+            min-height: 350px; display: flex; flex-direction: column; justify-content: space-between;
+        }
+
+        .card:hover { border-color: var(--matrix); transform: translateY(-10px); background: var(--glass-hover); }
+
+        .card i { font-size: 3.5rem; color: var(--matrix); margin-bottom: 20px; filter: drop-shadow(0 0 10px var(--matrix-glow)); }
+        .card h3 { font-size: 1.6rem; margin: 10px 0; }
+        .card p { color: #aaa; font-size: 0.95rem; }
+
+        .btn { 
+            display: inline-block; margin-top: 20px; padding: 12px 30px; 
+            border: 1px solid var(--matrix); color: var(--matrix); 
+            text-decoration: none; border-radius: 15px; font-weight: 900;
+            width: 100%; max-width: 200px; align-self: center;
+        }
+        .btn:hover { background: var(--matrix); color: #000; box-shadow: 0 0 20px var(--matrix-glow); }
+
+        footer { 
+            background: rgba(0, 0, 0, 0.7); padding: 40px 20px; text-align: center; 
+            border-top: 1px solid var(--glass-border); 
+        }
+
+        /* Responsive Adjustments */
         @media (max-width: 768px) {
-            header .header-container { flex-direction: column; gap: 15px; padding: 10px; }
-            nav { gap: 12px; flex-wrap: wrap; justify-content: center; }
-            nav a { font-size: 0.9rem; }
-            .hero h1 { font-size: 2.2rem; }
-            .hero p { font-size: 1rem; }
-            .auth-buttons { width: 100%; justify-content: center; }
-            .btn-auth { padding: 6px 15px; font-size: 0.85rem; }
-            .logo { font-size: 1.5rem; }
+            nav { display: none; } /* يفضل عمل قائمة همبرجر لاحقاً */
+            .section-padding { padding: 50px 0; }
+            .grid-container { grid-template-columns: 1fr; }
+            .hero { height: 70vh; }
         }
-
-        /* أنيميشن الاهتزاز */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        .shake-animation { animation: shake 0.2s ease-in-out 0s 2; border: 2px solid #ff3333 !important; }
-
-        .user-welcome { color: var(--matrix); font-weight: 900; margin-left: 15px; display: flex; align-items: center; gap: 8px; }
-        .logout-link { color: #ff3333; text-decoration: none; font-weight: bold; border: 1px solid #ff3333; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
+
     <canvas id="matrix"></canvas>
 
     <header>
-        <div class="container header-container">
-            <a href="index.html" class="logo">ESLAM_ACADEMY</a>
+        <div class="header-container">
+            <a href="index.html" class="logo">ESLAM <span>ACADEMY</span></a>
             <nav>
-                <a href="index.html" style="color: var(--matrix);">الرئيسية</a>
-                <a href="courses.html">الدورات</a>
-                <a href="#" onclick="protectedLink('tools.html')">الأدوات</a>
-                <a href="#" onclick="protectedLink('library.html')">المكتبة</a>
-                <a href="contact.html">تواصل</a>
+                <a href="index.html" style="color: var(--matrix)">الرئيسية</a>
+                <a href="courses.html">الكورسات</a>
+                <a href="tools.html">الأدوات</a>
+                <a href="contact.html">تواصل معنا</a>
             </nav>
-            <div class="auth-buttons" id="authSection">
-                <a href="login.html" class="btn-auth">دخول</a>
-                <a href="register.html" class="btn-auth" style="background: var(--matrix); color: #000;">انضمام</a>
-            </div>
         </div>
     </header>
 
-    <main class="container">
-        <section class="hero">
-            <h1 id="typing"></h1>
-            <p>> مدرسة صناعة النخبة في الأمن السيبراني _</p>
-            <div style="margin-top: 40px; display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
-                <a href="courses.html" class="btn-auth" style="padding: 15px 40px; font-size: 1.2rem;">استكشاف المسارات</a>
+    <section class="hero">
+        <h1>ADVANCED HACKING</h1>
+        <div class="typewriter-container">
+            <span id="typewriter"></span>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="grid-container">
+            <div class="card">
+                <div>
+                    <i class="fas fa-user-shield"></i>
+                    <h3>الكورسات</h3>
+                    <p>تعلم أقوى استراتيجيات الأمن السيبراني واختبار الاختراق من الصفر حتى الاحتراف بمناهج تطبيقية.</p>
+                </div>
+                <a href="courses.html" class="btn">اكتشف الآن</a>
             </div>
-        </section>
-    </main>
+
+            <div class="card">
+                <div>
+                    <i class="fas fa-terminal"></i>
+                    <h3>ترسانة الأدوات</h3>
+                    <p>مجموعة مختارة من أقوى الأدوات والبرمجيات المستخدمة في اختبار الاختراق والتحقيق الجنائي الرقمي.</p>
+                </div>
+                <a href="tools.html" class="btn">عرض الأدوات</a>
+            </div>
+
+            <div class="card">
+                <div>
+                    <i class="fas fa-headset"></i>
+                    <h3>تواصل معنا</h3>
+                    <p>هل لديك استفسار؟ فريقنا التقني مستعد للإجابة على تساؤلاتك ومساعدتك في رحلتك التعليمية.</p>
+                </div>
+                <a href="contact.html" class="btn">اتصل بنا</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 <b>ESLAM ACADEMY</b> | جميع الحقوق محفوظة</p>
+    </footer>
 
     <script>
-        // تأثير الماتريكس
+        // Matrix Effect
         const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
         function setSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         setSize(); window.onresize = setSize;
         const drops = Array(Math.floor(canvas.width/20)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(3, 3, 3, 0.15)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
             drops.forEach((y, i) => {
                 ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
@@ -103,37 +181,18 @@
             });
         } setInterval(draw, 35);
 
-        // نظام الحماية
-        function protectedLink(targetUrl) {
-            const user = localStorage.getItem('user_name');
-            const authSection = document.getElementById('authSection');
-            if (!user) {
-                authSection.classList.add('shake-animation');
-                alert("⚠️ تنبيه أمني: يرجى تسجيل الدخول أو إنشاء حساب للوصول لهذا القسم.");
-                setTimeout(() => authSection.classList.remove('shake-animation'), 500);
-            } else { window.location.href = targetUrl; }
-        }
-
-        window.onload = function() {
-            const savedUser = localStorage.getItem('user_name');
-            if (savedUser) {
-                document.getElementById('authSection').innerHTML = `
-                    <div class="user-welcome"><i class="fas fa-user-secret"></i> أهلاً، ${savedUser}</div>
-                    <a href="#" onclick="logout()" class="logout-link">خروج</a>`;
-            }
-            typeEffect();
-        }
-
-        function logout() { localStorage.removeItem('user_name'); location.reload(); }
-
-        const text = "WELCOME TO Eslam_Academy";
-        let index = 0;
-        function typeEffect() {
-            if (index < text.length) {
-                document.getElementById("typing").innerHTML += text.charAt(index);
-                index++; setTimeout(typeEffect, 100);
-            }
-        }
+        // Typewriter Effect
+        const phrases = ["PRACTICAL LEARNING", "SECURE FUTURE", "EXPERT MENTORSHIP"];
+        let pIndex = 0, charIndex = 0, isDeleting = false;
+        function type() {
+            const target = document.getElementById("typewriter");
+            const current = phrases[pIndex];
+            if (isDeleting) { target.textContent = current.substring(0, charIndex - 1); charIndex--; }
+            else { target.textContent = current.substring(0, charIndex + 1); charIndex++; }
+            if (!isDeleting && charIndex === current.length) { isDeleting = true; setTimeout(type, 2000); }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; pIndex = (pIndex + 1) % phrases.length; setTimeout(type, 500); }
+            else { setTimeout(type, isDeleting ? 50 : 100); }
+        } type();
     </script>
 </body>
 </html>
