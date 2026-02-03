@@ -3,82 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الشروط والخصوصية | Eslam_Academy</title>
+    <title>الخصوصية والشروط | ESLAM ACADEMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --matrix: #00ff00; --card-bg: rgba(10, 10, 10, 0.95); }
-        body { background: #000; color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; overflow-x: hidden; }
-        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; }
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        :root { 
+            --matrix: #00ff00; --bg: #030303; 
+            --glass: rgba(255, 255, 255, 0.03); 
+            --glass-border: rgba(255, 255, 255, 0.1); 
+            --blur: blur(20px);
+        }
+        * { box-sizing: border-box; transition: all 0.3s ease; scroll-behavior: smooth; }
+        body { background: var(--bg); color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; line-height: 1.8; }
+        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
         
-        /* الهيدر المتجاوب */
-        header { background: rgba(0,0,0,0.85); border-bottom: 1px solid #111; position: sticky; top: 0; z-index: 100; min-height: 80px; display: flex; align-items: center; }
-        .header-container { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 0; }
-        .logo { font-size: 1.5rem; font-weight: 900; color: var(--matrix); text-decoration: none; }
-        
-        nav { display: flex; gap: 15px; }
-        nav a { color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: 0.3s; }
-        nav a:hover { color: var(--matrix); }
+        /* ضبط أبعاد الهيدر */
+        header { 
+            background: rgba(0, 0, 0, 0.4); backdrop-filter: var(--blur); 
+            border-bottom: 1px solid var(--glass-border); 
+            position: sticky; top: 0; z-index: 1000; height: 70px;
+            display: flex; align-items: center;
+        }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; width: 100%; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
+        .logo span { color: var(--matrix); }
 
-        /* قسم الشروط */
-        .terms-content { background: var(--card-bg); border: 1px solid #222; padding: 30px; border-radius: 15px; margin-top: 30px; }
-        .page-title { color: var(--matrix); text-align: center; margin-bottom: 40px; font-size: 2rem; }
+        /* ضبط أبعاد حاوية النصوص */
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; min-height: 75vh; }
         
-        .term-section { margin-bottom: 35px; border-right: 3px solid var(--matrix); padding-right: 20px; }
-        .term-section h2 { color: var(--matrix); font-size: 1.4rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        .term-section p { color: #ccc; line-height: 1.8; font-size: 1rem; margin: 0; }
-
-        /* --- الأبعاد الجامدة للموبايل --- */
-        @media (max-width: 768px) {
-            .header-container { flex-direction: column; gap: 15px; text-align: center; }
-            nav { flex-wrap: wrap; justify-content: center; gap: 10px; }
-            .page-title { font-size: 1.6rem; }
-            .terms-content { padding: 20px 15px; }
-            .term-section h2 { font-size: 1.2rem; }
-            .term-section p { font-size: 0.95rem; }
+        .terms-box { 
+            background: var(--glass); backdrop-filter: var(--blur); 
+            border: 1px solid var(--glass-border); border-radius: 25px; 
+            padding: clamp(20px, 5vw, 50px); 
         }
 
-        footer { text-align: center; padding: 30px; color: #555; border-top: 1px solid #111; margin-top: 40px; }
+        h1 { color: var(--matrix); font-size: 2.2rem; margin-bottom: 30px; text-align: center; }
+        h2 { color: var(--matrix); font-size: 1.4rem; border-right: 4px solid var(--matrix); padding-right: 15px; margin: 40px 0 20px; }
+        
+        p { color: #ccc; margin-bottom: 20px; font-size: 1.05rem; }
+        
+        ul { list-style: none; padding: 0; }
+        ul li { 
+            position: relative; padding-right: 30px; margin-bottom: 15px; color: #bbb;
+        }
+        ul li::before { 
+            content: "\f3ed"; font-family: "Font Awesome 5 Free"; font-weight: 900;
+            position: absolute; right: 0; color: var(--matrix); font-size: 0.9rem;
+        }
+
+        footer { background: rgba(0, 0, 0, 0.8); padding: 30px; text-align: center; border-top: 1px solid var(--glass-border); margin-top: 60px; }
+
+        @media (max-width: 600px) {
+            header { height: auto; padding: 15px 0; }
+            .header-container { flex-direction: column; gap: 10px; }
+            h1 { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
     <canvas id="matrix"></canvas>
-
+    
     <header>
-        <div class="container header-container" style="max-width: 1200px;">
-            <a href="index.html" class="logo">ESLAM_ACADEMY</a>
-            <nav>
-                <a href="index.html">الرئيسية</a>
-                <a href="courses.html">الدورات</a>
-                <a href="tools.html">الأدوات</a>
-                <a href="terms.html" style="color: var(--matrix);">الشروط</a>
-            </nav>
+        <div class="header-container">
+            <a href="index.html" class="logo">ESLAM <span>ACADEMY</span></a>
         </div>
     </header>
 
     <div class="container">
-        <main class="terms-content">
-            <h1 class="page-title">اتفاقية الاستخدام والخصوصية</h1>
+        <div class="terms-box">
+            <h1>سياسة الخصوصية والشروط</h1>
+            <p>أهلاً بك في أكاديمية إسلام عطية. بدخولك واستخدامك للموقع، فإنك توافق على الالتزام بالشروط الموضحة أدناه، والتي تهدف لضمان بيئة تعليمية آمنة ومحترفة.</p>
 
-            <section class="term-section">
-                <h2><i class="fas fa-shield-alt"></i> الغرض التعليمي</h2>
-                <p>كافة الأدوات والكورسات المقدمة في Eslam_Academy مخصصة لأغراض تعليمية وأمنية فقط. نحن نبرأ تماماً من أي استخدام غير قانوني لهذه المعلومات خارج نطاق الحماية والاختبار الأخلاقي.</p>
-            </section>
+            <h2>1. المسؤولية القانونية</h2>
+            <p>جميع الكورسات والأدوات المقدمة في الموقع هي لأغراض <strong>تعليمية وأخلاقية فقط</strong>. نحن نخلي مسؤوليتنا تماماً عن أي استخدام غير قانوني أو ضار للمعلومات الواردة هنا خارج نطاق اختبار الاختراق المسموح به قانوناً.</p>
 
-            <section class="term-section">
-                <h2><i class="fas fa-user-lock"></i> حماية البيانات والخصوصية</h2>
-                <p>نلتزم بحماية بياناتك الشخصية (الاسم والبريد) ولا يتم مشاركتها مع أي طرف ثالث. يتم تشفير كافة البيانات المخزنة لضمان خصوصية طلابنا.</p>
-            </section>
+            <h2>2. الملكية الفكرية</h2>
+            <p>كافة المحتويات البرمجية، الفيديوهات، والكتب التعليمية هي ملك حصري لـ <b>ESLAM ACADEMY</b>. يُمنع منعاً باتاً إعادة نشرها أو بيعها دون إذن كتابي مسبق.</p>
 
-            <section class="term-section">
-                <h2><i class="fas fa-user-slash"></i> سياسة العضوية</h2>
-                <p>يحق لإدارة الأكاديمية إلغاء اشتراك أي طالب يثبت تورطه في محاولات تخريبية للمنصة أو مخالفة اتفاقية الاستخدام دون استرداد الرسوم.</p>
-            </section>
-        </main>
+            <h2>3. حدود الاستخدام</h2>
+            <ul>
+                <li>يجب استخدام الأدوات في بيئات اختبار معزولة (Labs).</li>
+                <li>يُمنع محاولة تخريب أو فحص ثغرات الموقع نفسه دون إذن.</li>
+                <li>التعامل باحترام في كافة قنوات التواصل التابعة للأكاديمية.</li>
+            </ul>
+
+            <h2>4. تحديث البيانات</h2>
+            <p>نحتفظ بالحق في تعديل هذه الشروط في أي وقت لمواكبة التغيرات في القوانين الرقمية، وسيتم إخطار المستخدمين عبر الموقع عند حدوث تغييرات جوهرية.</p>
+        </div>
     </div>
 
-    <footer>&copy; 2026 Eslam_Academy | جميع الحقوق محفوظة</footer>
+    <footer>
+        <p>© 2026 <b>ESLAM ACADEMY</b> | تم التحديث في فبراير 2026</p>
+    </footer>
 
     <script>
         const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
@@ -86,7 +102,7 @@
         setSize(); window.onresize = setSize;
         const drops = Array(Math.floor(canvas.width/20)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(3, 3, 3, 0.15)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
             drops.forEach((y, i) => {
                 ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
