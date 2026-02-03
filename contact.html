@@ -3,78 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تواصل معنا | Eslam_Academy</title>
+    <title>تواصل معنا | ESLAM ACADEMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --matrix: #00ff00; --card-bg: rgba(10, 10, 10, 0.95); --tg: #26A5E4; --wa: #25D366; }
-        body { background: #000; color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; overflow-x: hidden; }
-        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-        /* الهيدر المتجاوب */
-        header { background: rgba(0,0,0,0.85); border-bottom: 1px solid #111; position: sticky; top: 0; z-index: 100; min-height: 80px; display: flex; align-items: center; }
-        .header-container { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 0; }
-        .logo { font-size: 1.5rem; font-weight: 900; color: var(--matrix); text-decoration: none; }
-        nav { display: flex; gap: 15px; }
-        nav a { color: #fff; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
-
-        /* قسم التواصل */
-        .contact-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 60px 0; }
-        .contact-card { background: var(--card-bg); border: 1px solid #222; border-radius: 15px; padding: 40px; text-align: center; transition: 0.3s; }
-        .contact-card:hover { border-color: var(--matrix); transform: translateY(-10px); }
-        
-        .contact-card i { font-size: 4rem; margin-bottom: 20px; }
-        .icon-tg { color: var(--tg); }
-        .icon-wa { color: var(--wa); }
-
-        .btn-contact { display: inline-block; width: 100%; padding: 15px; border-radius: 8px; text-decoration: none; font-weight: 900; font-size: 1.1rem; color: #fff; transition: 0.3s; margin-top: 20px; }
-        .btn-tg { background: var(--tg); }
-        .btn-wa { background: var(--wa); }
-        .btn-contact:hover { opacity: 0.8; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-
-        @media (max-width: 768px) {
-            .header-container { flex-direction: column; gap: 15px; }
-            .contact-wrapper { grid-template-columns: 1fr; }
+        :root { 
+            --matrix: #00ff00; --matrix-glow: rgba(0, 255, 0, 0.4); --bg: #030303;
+            --glass: rgba(255, 255, 255, 0.02); --glass-hover: rgba(255, 255, 255, 0.08);
+            --blur: blur(25px); --glass-border: rgba(255, 255, 255, 0.1);
+            --tg: #26A5E4; --wa: #25D366;
         }
 
-        footer { text-align: center; padding: 30px; color: #444; border-top: 1px solid #111; }
+        * { box-sizing: border-box; transition: all 0.3s ease; scroll-behavior: smooth; }
+        body { background: var(--bg); color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; overflow-x: hidden; }
+
+        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.2; }
+
+        /* ضبط أبعاد الهيدر */
+        header { 
+            background: rgba(0, 0, 0, 0.3); backdrop-filter: var(--blur); 
+            border-bottom: 1px solid var(--glass-border); 
+            position: sticky; top: 0; z-index: 1000; padding: 10px 0;
+            min-height: 70px; display: flex; align-items: center;
+        }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; width: 100%; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
+        .logo span { color: var(--matrix); text-shadow: 0 0 15px var(--matrix); }
+        nav a { color: #ddd; text-decoration: none; font-weight: 700; padding: 10px 15px; border-radius: 12px; }
+        nav a:hover { color: var(--matrix); background: var(--glass-hover); }
+
+        /* ضبط أبعاد الحاوية الرئيسية */
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; min-height: calc(100vh - 150px); }
+        .page-title { text-align: center; margin-bottom: 40px; }
+        .page-title h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--matrix); text-shadow: 0 0 15px var(--matrix-glow); margin: 0; }
+        .page-title p { color: #aaa; margin-top: 10px; font-size: 1rem; }
+
+        /* ضبط أبعاد الـ Grid */
+        .contact-wrapper { 
+            display: grid; 
+            grid-template-columns: 1fr 1.6fr; /* الفورم أعرض قليلاً من الكروت */
+            gap: 30px; 
+            align-items: start;
+        }
+
+        /* ضبط أبعاد كروت التواصل */
+        .info-side { display: flex; flex-direction: column; gap: 20px; height: 100%; }
+        .info-card { 
+            background: var(--glass); backdrop-filter: var(--blur); 
+            border: 1px solid var(--glass-border); border-radius: 20px; 
+            padding: 35px 20px; text-align: center; text-decoration: none; color: white;
+            flex: 1; /* جعل الكروت تتوزع بالتساوي */
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .info-card:hover { transform: translateY(-5px); border-color: var(--matrix); background: var(--glass-hover); }
+        .info-card i { font-size: 3rem; margin-bottom: 15px; }
+        .info-card.tg i { color: var(--tg); }
+        .info-card.wa i { color: var(--wa); }
+
+        /* ضبط أبعاد نموذج المراسلة */
+        .form-side { 
+            background: var(--glass); backdrop-filter: var(--blur); 
+            border: 1px solid var(--glass-border); border-radius: 25px; 
+            padding: 35px; 
+        }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--matrix); font-weight: bold; font-size: 0.9rem; }
+        
+        .form-group input, .form-group textarea {
+            width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+            border-radius: 12px; padding: 14px; color: #fff; font-family: 'Tajawal'; font-size: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%; padding: 15px; background: var(--matrix); color: #000;
+            border: none; border-radius: 12px; font-weight: 900; font-size: 1.1rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+            margin-top: 10px;
+        }
+        .submit-btn:hover { box-shadow: 0 0 25px var(--matrix-glow); transform: scale(1.01); }
+
+        footer { background: rgba(0, 0, 0, 0.7); padding: 30px; text-align: center; border-top: 1px solid var(--glass-border); }
+
+        /* الاستجابة للأبعاد الصغيرة */
+        @media (max-width: 850px) {
+            .contact-wrapper { grid-template-columns: 1fr; }
+            .info-side { flex-direction: row; }
+            .info-card { padding: 25px 15px; }
+        }
+
+        @media (max-width: 500px) {
+            .info-side { flex-direction: column; }
+            .form-side { padding: 20px; }
+            .header-container { flex-direction: column; gap: 10px; }
+        }
     </style>
 </head>
 <body>
     <canvas id="matrix"></canvas>
 
     <header>
-        <div class="container header-container">
-            <a href="index.html" class="logo">ESLAM_ACADEMY</a>
-            <nav id="authSection"></nav>
+        <div class="header-container">
+            <a href="index.html" class="logo">ESLAM <span>ACADEMY</span></a>
+            <nav>
+                <a href="index.html">الرئيسية</a>
+                <a href="courses.html">الكورسات</a>
+                <a href="tools.html">الأدوات</a>
+                <a href="contact.html" style="color: var(--matrix)">تواصل معنا</a>
+            </nav>
         </div>
     </header>
 
-    <main class="container">
-        <div style="text-align: center; padding-top: 50px;">
-            <h1 style="color: var(--matrix); font-size: 2.5rem;">قنوات الاتصال المباشرة</h1>
-            <p style="color: #888;">اختر الوسيلة المناسبة لك للدعم الفني أو الاستفسارات</p>
+    <div class="container">
+        <div class="page-title">
+            <h1>قنوات الاتصال</h1>
+            <p>نحن متاحون دائماً للرد على استفساراتك التقنية</p>
         </div>
 
         <div class="contact-wrapper">
-            <div class="contact-card">
-                <i class="fab fa-telegram icon-tg"></i>
-                <h2>Telegram</h2>
-                <p>تواصل معنا عبر تلجرام للحصول على رد سريع ودعم تقني.</p>
-                <a href="https://t.me/eng_islam_attia" class="btn-contact btn-tg" target="_blank">فتح تلجرام</a>
+            <div class="info-side">
+                <a href="https://t.me/eng_islam_attia" target="_blank" class="info-card tg">
+                    <i class="fab fa-telegram-plane"></i>
+                    <h3>Telegram</h3>
+                    <p>@eng_islam_attia</p>
+                </a>
+                <a href="https://wa.me/201279830838" target="_blank" class="info-card wa">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp</h3>
+                    <p>+20 127 983 0838</p>
+                </a>
             </div>
 
-            <div class="contact-card">
-                <i class="fab fa-whatsapp icon-wa"></i>
-                <h2>WhatsApp</h2>
-                <p>للتحدث مباشرة مع خدمة العملاء بخصوص الدورات.</p>
-                <a href="https://wa.me/201279830838" class="btn-contact btn-wa" target="_blank">ارسل رسالة</a>
+            <div class="form-side">
+                <form action="https://formspree.io/f/mqelgakr" method="POST">
+                    <div class="form-group">
+                        <label>الاسم الكامل</label>
+                        <input type="text" name="Name" placeholder="أدخل اسمك" required>
+                    </div>
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" name="Email" placeholder="mail@example.com" required dir="ltr">
+                    </div>
+                    <div class="form-group">
+                        <label>موضوع الرسالة</label>
+                        <input type="text" name="Subject" placeholder="عنوان الاستفسار" required>
+                    </div>
+                    <div class="form-group">
+                        <label>تفاصيل الرسالة</label>
+                        <textarea name="Message" rows="5" placeholder="كيف يمكننا مساعدتك؟" required></textarea>
+                    </div>
+                    <input type="hidden" name="_subject" value="رسالة جديدة من الموقع">
+                    <button type="submit" class="submit-btn">
+                        إرسال الآن <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
             </div>
         </div>
-    </main>
+    </div>
 
-    <footer>&copy; 2026 Eslam_Academy | جميع الحقوق محفوظة</footer>
+    <footer><p>© 2026 <b>ESLAM ACADEMY</b> | جميع الحقوق محفوظة</p></footer>
 
     <script>
         const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
@@ -82,7 +168,7 @@
         setSize(); window.onresize = setSize;
         const drops = Array(Math.floor(canvas.width/20)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(3, 3, 3, 0.15)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
             drops.forEach((y, i) => {
                 ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
@@ -90,18 +176,6 @@
                 drops[i]++;
             });
         } setInterval(draw, 35);
-
-        window.onload = function() {
-            const user = localStorage.getItem('user_name');
-            if (user) {
-                document.getElementById('authSection').innerHTML = `
-                    <span style="color:var(--matrix); font-weight:bold; margin-left:10px;">أهلاً، ${user}</span>
-                    <a href="#" onclick="logout()" style="color:#ff3333; text-decoration:none;">[خروج]</a>`;
-            } else {
-                document.getElementById('authSection').innerHTML = `<a href="login.html" style="color:var(--matrix); text-decoration:none;">تسجيل دخول</a>`;
-            }
-        }
-        function logout() { localStorage.removeItem('user_name'); location.reload(); }
     </script>
 </body>
 </html>
