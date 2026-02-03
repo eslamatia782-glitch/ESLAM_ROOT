@@ -3,115 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مخزن الأسلحة الرقمية | Eslam_Academy</title>
+    <title>ترسانة الأدوات | ESLAM ACADEMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --matrix: #00ff00; --card-bg: rgba(10, 10, 10, 0.95); }
-        body { background: #000; color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; overflow-x: hidden; }
-        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-        /* الهيدر الموحد المتجاوب */
-        header { background: rgba(0,0,0,0.85); border-bottom: 1px solid #111; position: sticky; top: 0; z-index: 100; min-height: 80px; display: flex; align-items: center; }
-        .header-container { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 0; }
-        .logo { font-size: 1.5rem; font-weight: 900; color: var(--matrix); text-decoration: none; }
-        
-        nav { display: flex; gap: 15px; align-items: center; }
-        nav a { color: #fff; text-decoration: none; font-weight: 700; font-size: 0.95rem; transition: 0.3s; }
-        nav a:hover { color: var(--matrix); }
-
-        .auth-info { display: flex; align-items: center; gap: 10px; }
-
-        /* قسم الأدوات */
-        .page-header { text-align: center; padding: 40px 0; }
-        .page-header h1 { font-size: 2.2rem; color: var(--matrix); margin-bottom: 10px; }
-        
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding-bottom: 50px; }
-        .tool-card { background: var(--card-bg); border: 1px solid #222; border-radius: 12px; padding: 25px; text-align: center; transition: 0.3s; position: relative; overflow: hidden; }
-        .tool-card:hover { border-color: var(--matrix); transform: translateY(-5px); }
-        
-        .tool-card i { font-size: 3rem; color: var(--matrix); margin-bottom: 15px; }
-        .tool-card h3 { margin: 10px 0; font-size: 1.3rem; color: #fff; }
-        .tool-card p { color: #888; font-size: 0.9rem; margin-bottom: 20px; min-height: 40px; }
-        
-        .btn-download { display: block; width: 100%; padding: 12px; background: transparent; border: 1px solid var(--matrix); color: var(--matrix); text-decoration: none; border-radius: 6px; font-weight: bold; transition: 0.3s; box-sizing: border-box; }
-        .btn-download:hover { background: var(--matrix); color: #000; }
-
-        /* شارة الحماية */
-        .secure-badge { position: absolute; top: 10px; right: 10px; font-size: 0.7rem; color: var(--matrix); border: 1px solid var(--matrix); padding: 2px 8px; border-radius: 20px; }
-
-        /* --- الأبعاد الجامدة للموبايل --- */
-        @media (max-width: 768px) {
-            .header-container { flex-direction: column; gap: 15px; text-align: center; }
-            nav { gap: 10px; flex-wrap: wrap; justify-content: center; }
-            .page-header h1 { font-size: 1.7rem; }
-            .tools-grid { grid-template-columns: 1fr; } /* أداة واحدة في السطر */
-            .logo { font-size: 1.3rem; }
+        :root { 
+            --matrix: #00ff00; --matrix-glow: rgba(0, 255, 0, 0.4); --bg: #030303; 
+            --glass: rgba(255, 255, 255, 0.02); --glass-hover: rgba(255, 255, 255, 0.08); 
+            --blur: blur(25px); --glass-border: rgba(255, 255, 255, 0.1); 
         }
+        * { box-sizing: border-box; transition: all 0.3s ease; }
+        body { background: var(--bg); color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; overflow-x: hidden; }
+        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.2; }
+        
+        /* ضبط أبعاد الهيدر */
+        header { 
+            background: rgba(0, 0, 0, 0.3); backdrop-filter: var(--blur); 
+            border-bottom: 1px solid var(--glass-border); 
+            position: sticky; top: 0; z-index: 1000; height: 70px;
+            display: flex; align-items: center;
+        }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; width: 100%; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; }
+        .logo span { color: var(--matrix); text-shadow: 0 0 15px var(--matrix); }
+        nav a { color: #ddd; text-decoration: none; font-weight: 700; padding: 10px 15px; border-radius: 12px; }
+        nav a:hover { color: var(--matrix); background: var(--glass-hover); }
 
-        footer { background: #050505; border-top: 1px solid #111; padding: 25px 0; text-align: center; color: #555; font-size: 0.85rem; }
+        /* ضبط أبعاد الحاوية */
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; min-height: 85vh; }
+        .page-header { text-align: center; margin-bottom: 40px; }
+        .page-header h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--matrix); text-shadow: 0 0 15px var(--matrix-glow); margin: 0; }
+        
+        /* ضبط أبعاد الشبكة */
+        .tools-grid { 
+            display: none; 
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+            gap: 20px; 
+        }
+        .tools-grid.active { display: grid; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ضبط أبعاد كرت الأداة */
+        .tool-card { 
+            background: var(--glass); backdrop-filter: var(--blur); 
+            border: 1px solid var(--glass-border); border-radius: 20px; 
+            padding: 25px; text-align: center; display: flex; flex-direction: column;
+            min-height: 320px; /* ارتفاع ثابت وموحد */
+        }
+        .tool-card:hover { border-color: var(--matrix); transform: translateY(-8px); background: var(--glass-hover); }
+        
+        .tool-icon { 
+            height: 80px; display: flex; align-items: center; justify-content: center; 
+            font-size: 3rem; color: var(--matrix); margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px var(--matrix-glow));
+        }
+        
+        .tool-info h3 { font-size: 1.3rem; margin: 0 0 10px; height: 2.8rem; overflow: hidden; }
+        .tool-info p { color: #aaa; font-size: 0.85rem; margin-bottom: 20px; flex-grow: 1; line-height: 1.4; }
+        
+        .btn-download { 
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; padding: 12px; border: 1px solid var(--matrix); 
+            color: var(--matrix); text-decoration: none; border-radius: 12px; font-weight: 900; 
+        }
+        .btn-download:hover { background: var(--matrix); color: #000; box-shadow: 0 0 20px var(--matrix-glow); }
+
+        /* ضبط أبعاد الترقيم */
+        .pagination { display: flex; justify-content: center; gap: 10px; margin-top: 40px; }
+        .pagination button { 
+            background: var(--glass); border: 1px solid var(--glass-border); 
+            color: #fff; width: 45px; height: 45px; border-radius: 12px; 
+            cursor: pointer; font-weight: bold; font-size: 1rem;
+        }
+        .pagination button.active { background: var(--matrix); color: #000; border-color: var(--matrix); }
+
+        footer { background: rgba(0, 0, 0, 0.7); padding: 30px; text-align: center; border-top: 1px solid var(--glass-border); }
+
+        @media (max-width: 600px) {
+            header { height: auto; padding: 15px 0; }
+            .header-container { flex-direction: column; gap: 10px; }
+            .tools-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
     <canvas id="matrix"></canvas>
-
     <header>
-        <div class="container header-container">
-            <a href="index.html" class="logo">ESLAM_ACADEMY</a>
+        <div class="header-container">
+            <a href="index.html" class="logo">ESLAM <span>ACADEMY</span></a>
             <nav>
                 <a href="index.html">الرئيسية</a>
-                <a href="courses.html">الدورات</a>
-                <a href="tools.html" style="color: var(--matrix);">الأدوات</a>
-                <a href="library.html">المكتبة</a>
+                <a href="courses.html">الكورسات</a>
+                <a href="tools.html" style="color: var(--matrix)">الأدوات</a>
+                <a href="contact.html">تواصل</a>
             </nav>
-            <div id="authSection" class="auth-info"></div>
         </div>
     </header>
 
-    <div class="container" id="protectedContent" style="display: none;">
+    <div class="container">
         <div class="page-header">
-            <h1>مخزن الأدوات الرقمية</h1>
-            <p>أدوات احترافية لاختبار الاختراق والحماية</p>
+            <h1>ترسانة الأدوات</h1>
+            <p>أدوات كالي لينكس والبرمجيات المتخصصة</p>
         </div>
 
-        <div class="tools-grid">
-            <div class="tool-card">
-                <span class="secure-badge"><i class="fas fa-shield-alt"></i> آمن</span>
-                <i class="fas fa-search-location"></i>
-                <h3>فاحص المنافذ (Nmap)</h3>
-                <p>أداة قوية لاستكشاف الشبكات وفحص الثغرات المفتوحة.</p>
-                <a href="soon.html" class="btn-download">تحميل الأداة</a>
-            </div>
+        <div id="p1" class="tools-grid active">
+            <div class="tool-card"><div class="tool-icon"><i class="fas fa-search"></i></div><div class="tool-info"><h3>Nmap</h3><p>أداة استكشاف الشبكة وفحص المنافذ الأشهر عالمياً.</p><a href="soon.html?from=tools" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+            <div class="tool-card"><div class="tool-icon"><i class="fas fa-spider"></i></div><div class="tool-info"><h3>Burp Suite</h3><p>المنصة المتكاملة لاختبار اختراق تطبيقات الويب.</p><a href="soon.html?from=tools" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+            <div class="tool-card"><div class="tool-icon"><i class="fas fa-key"></i></div><div class="tool-info"><h3>John the Ripper</h3><p>أداة قوية لكسر الهاشات وكلمات المرور المشفرة.</p><a href="soon.html?from=tools" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+            <div class="tool-card"><div class="tool-icon"><i class="fas fa-broadcast-tower"></i></div><div class="tool-info"><h3>Wireshark</h3><p>محلل حزم البيانات والشبكات في الوقت الفعلي.</p><a href="soon.html?from=tools" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+            <div class="tool-card"><div class="tool-icon"><i class="fas fa-bug"></i></div><div class="tool-info"><h3>Metasploit</h3><p>الإطار الأقوى لتطوير وتنفيذ استغلال الثغرات.</p><a href="soon.html?from=tools" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+            <div class="tool-card"><div class="tool-icon"><i class="fas fa-database"></i></div><div class="tool-info"><h3>SQLmap</h3><p>أداة آلية لاكتشاف واستغلال ثغرات SQL Injection.</p><a href="soon.html?from=tools" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+        </div>
 
-            <div class="tool-card">
-                <span class="secure-badge"><i class="fas fa-shield-alt"></i> آمن</span>
-                <i class="fas fa-spider"></i>
-                <h3>محلل الترافيك</h3>
-                <p>مراقبة وتحليل حزم البيانات داخل الشبكة المحلية.</p>
-                <a href="soon.html" class="btn-download">تحميل الأداة</a>
-            </div>
+        <div id="p2" class="tools-grid">
+            <div class="tool-card"><div class="tool-icon"><i class="fas fa-wifi"></i></div><div class="tool-info"><h3>Aircrack-ng</h3><p>مجموعة أدوات كاملة لتقييم أمن الشبكات اللاسلكية.</p><a href="soon.html?from=tools" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+            <div class="tool-card"><div class="tool-icon"><i class="fas fa-mask"></i></div><div class="tool-info"><h3>Hydra</h3><p>أسرع أداة لكسر كلمات مرور بروتوكولات تسجيل الدخول.</p><a href="soon.html?from=tools" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+            <div class="tool-card"><div class="tool-icon"><i class="fas fa-eye"></i></div><div class="tool-info"><h3>Maltego</h3><p>أداة لجمع المعلومات (OSINT) ورسم العلاقات الرقمية.</p><a href="soon.html?from=tools" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+            <div class="tool-card"><div class="tool-icon"><i class="fas fa-file-code"></i></div><div class="tool-info"><h3>Nikto</h3><p>فاحص ثغرات سيرفرات الويب بحثاً عن الملفات الخطرة.</p><a href="soon.html?from=tools" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+            <div class="tool-card"><div class="tool-icon"><i class="fas fa-user-secret"></i></div><div class="tool-info"><h3>BeEF</h3><p>إطار عمل لاستغلال متصفحات الويب واختبار اختراقها.</p><a href="soon.html?from=tools" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+            <div class="tool-card"><div class="tool-icon"><i class="fas fa-shield-virus"></i></div><div class="tool-info"><h3>Ghidra</h3><p>أداة الهندسة العكسية وتحليل البرمجيات الخبيثة.</p><a href="soon.html?from=tools" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+        </div>
 
-            <div class="tool-card">
-                <span class="secure-badge"><i class="fas fa-shield-alt"></i> آمن</span>
-                <i class="fas fa-user-secret"></i>
-                <h3>أداة تشفير الملفات</h3>
-                <p>تشفير البيانات الحساسة باستخدام خوارزمية AES-256.</p>
-                <a href="soon.html" class="btn-download">تحميل الأداة</a>
-            </div>
+        <div class="pagination">
+            <button onclick="changePage(1)" id="b1" class="active">1</button>
+            <button onclick="changePage(2)" id="b2">2</button>
+            <button onclick="window.location.href='soon.html?from=tools'">3</button>
         </div>
     </div>
 
-    <footer>&copy; 2026 Eslam_Academy | جميع الحقوق محفوظة لـ إسلام</footer>
+    <footer><p>© 2026 <b>ESLAM ACADEMY</b> | جميع الحقوق محفوظة</p></footer>
 
     <script>
-        // تأثير الماتريكس
+        function changePage(n){
+            document.querySelectorAll('.tools-grid').forEach(g=>g.classList.remove('active'));
+            document.querySelectorAll('.pagination button').forEach(b=>b.classList.remove('active'));
+            document.getElementById('p'+n).classList.add('active');
+            document.getElementById('b'+n).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
         const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
         function setSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         setSize(); window.onresize = setSize;
         const drops = Array(Math.floor(canvas.width/20)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(3, 3, 3, 0.15)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
             drops.forEach((y, i) => {
                 ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
@@ -119,21 +154,6 @@
                 drops[i]++;
             });
         } setInterval(draw, 35);
-
-        // نظام الحماية
-        window.onload = function() {
-            const user = localStorage.getItem('user_name');
-            if (!user) {
-                alert("⚠️ الوصول يتطلب تصريحاً. سجل دخولك أولاً.");
-                window.location.href = "login.html";
-            } else {
-                document.getElementById('protectedContent').style.display = 'block';
-                document.getElementById('authSection').innerHTML = `
-                    <span style="color:var(--matrix); font-weight:bold;">${user}</span>
-                    <a href="#" onclick="logout()" style="color:#ff3333; text-decoration:none; font-size:0.8rem;">[خروج]</a>`;
-            }
-        }
-        function logout() { localStorage.removeItem('user_name'); location.reload(); }
     </script>
 </body>
 </html>
