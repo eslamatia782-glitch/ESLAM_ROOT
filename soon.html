@@ -3,99 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قريباً | Eslam_Academy</title>
+    <title>قريباً | ESLAM ACADEMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --matrix: #00ff00; --card-bg: rgba(10, 10, 10, 0.98); }
-        body { background: #000; color: #fff; margin: 0; font-family: 'Tajawal', sans-serif; min-height: 100vh; overflow-x: hidden; }
-        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; }
-
-        /* الهيدر المتجاوب */
-        header { background: rgba(0,0,0,0.85); border-bottom: 1px solid #111; position: sticky; top: 0; z-index: 100; min-height: 70px; display: flex; align-items: center; }
-        .header-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.4rem; font-weight: 900; color: var(--matrix); text-decoration: none; }
-
-        /* حاوية المحتوى */
-        .soon-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - 150px); padding: 20px; text-align: center; }
-        .soon-card { background: var(--card-bg); border: 1px solid var(--matrix); padding: 40px 20px; border-radius: 20px; box-shadow: 0 0 30px rgba(0,255,0,0.1); width: 100%; max-width: 600px; }
+        :root { 
+            --matrix: #00ff00; --matrix-glow: rgba(0, 255, 0, 0.4); --bg: #030303; 
+            --glass: rgba(255, 255, 255, 0.05); --blur: blur(25px); --glass-border: rgba(255, 255, 255, 0.1); 
+        }
         
-        h1 { color: var(--matrix); font-size: 2.5rem; margin-bottom: 10px; font-weight: 900; }
-        p { color: #888; margin-bottom: 30px; font-size: 1.1rem; }
-
-        /* العداد التنازلي */
-        .timer-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
-        .timer-unit { background: rgba(255,255,255,0.05); border: 1px solid #222; padding: 15px; border-radius: 12px; min-width: 70px; }
-        .timer-unit span { display: block; font-size: 2rem; font-weight: 900; color: var(--matrix); }
-        .timer-unit label { font-size: 0.8rem; color: #666; }
-
-        .btn-back { display: inline-block; padding: 12px 30px; background: var(--matrix); color: #000; text-decoration: none; border-radius: 8px; font-weight: 900; transition: 0.3s; }
-        .btn-back:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--matrix); }
-
-        /* --- تعديلات الموبايل الجامدة --- */
-        @media (max-width: 500px) {
-            h1 { font-size: 1.8rem; }
-            .timer-container { gap: 8px; }
-            .timer-unit { padding: 10px 5px; min-width: 60px; }
-            .timer-unit span { font-size: 1.4rem; }
-            .timer-unit label { font-size: 0.7rem; }
-            .header-container { flex-direction: column; gap: 10px; }
+        * { box-sizing: border-box; transition: all 0.3s ease; }
+        
+        body { 
+            background: var(--bg); color: #fff; margin: 0; 
+            font-family: 'Tajawal', sans-serif; 
+            height: 100vh; display: flex; align-items: center; justify-content: center; 
+            overflow: hidden; padding: 20px;
         }
 
-        footer { text-align: center; padding: 20px; color: #444; font-size: 0.9rem; }
+        canvas#matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
+
+        /* ضبط أبعاد حاوية المحتوى */
+        .soon-container { 
+            text-align: center; 
+            background: var(--glass); backdrop-filter: var(--blur); 
+            padding: clamp(30px, 8vw, 60px); 
+            border-radius: 30px; border: 1px solid var(--glass-border);
+            width: 100%;
+            max-width: 550px; /* أقصى عرض للحاوية */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* ضبط أبعاد منطقة الأيقونة */
+        .icon-box { 
+            font-size: clamp(4rem, 15vw, 6rem); 
+            color: var(--matrix); 
+            margin-bottom: 20px;
+            height: 120px; /* ارتفاع ثابت لمنع قفز المحتوى */
+            display: flex; align-items: center; justify-content: center;
+            filter: drop-shadow(0 0 20px var(--matrix-glow));
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ضبط أبعاد النصوص */
+        h1 { font-size: clamp(2rem, 8vw, 3.5rem); margin: 10px 0; font-weight: 900; }
+        p { color: #aaa; font-size: clamp(1rem, 3vw, 1.2rem); margin-bottom: 30px; }
+
+        /* ضبط أبعاد الزر */
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 15px 35px; background: transparent;
+            border: 2px solid var(--matrix); color: var(--matrix);
+            text-decoration: none; border-radius: 15px;
+            font-weight: 900; font-size: 1.1rem;
+            width: auto; min-width: 200px; justify-content: center;
+        }
+        .back-btn:hover { background: var(--matrix); color: #000; box-shadow: 0 0 30px var(--matrix-glow); }
+
+        /* الأبعاد في الشاشات الصغيرة جداً */
+        @media (max-height: 500px) {
+            .soon-container { padding: 20px; }
+            .icon-box { height: 80px; font-size: 3rem; }
+            h1 { font-size: 1.5rem; }
+        }
     </style>
 </head>
 <body>
+
     <canvas id="matrix"></canvas>
 
-    <header>
-        <div class="header-container">
-            <a href="index.html" class="logo">ESLAM_ACADEMY</a>
-            <div id="authSection" style="font-size: 0.9rem;"></div>
+    <div class="soon-container">
+        <div class="icon-box">
+            <i class="fas fa-user-secret"></i>
         </div>
-    </header>
-
-    <div class="container">
-        <div class="soon-wrapper">
-            <div class="soon-card">
-                <i class="fas fa-user-secret" style="font-size: 4rem; color: var(--matrix); margin-bottom: 20px;"></i>
-                <h1>فحص الأنظمة..</h1>
-                <p>هذا القسم قيد التشفير وسيتم إطلاقه قريباً</p>
-
-                <div class="timer-container">
-                    <div class="timer-unit">
-                        <span id="days">00</span>
-                        <label>يوم</label>
-                    </div>
-                    <div class="timer-unit">
-                        <span id="hours">00</span>
-                        <label>ساعة</label>
-                    </div>
-                    <div class="timer-unit">
-                        <span id="minutes">00</span>
-                        <label>دقيقة</label>
-                    </div>
-                    <div class="timer-unit">
-                        <span id="seconds">00</span>
-                        <label>ثانية</label>
-                    </div>
-                </div>
-
-                <a href="index.html" class="btn-back"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
-            </div>
-        </div>
+        <h1 id="title-text">قريباً جداً</h1>
+        <p>نحن نعمل على تجهيز هذا القسم بأعلى المعايير التقنية. كن مستعداً!</p>
+        <a href="index.html" class="back-btn" id="back-btn">
+            <i class="fas fa-arrow-right"></i>
+            <span id="btn-text">العودة للرئيسية</span>
+        </a>
     </div>
 
-    <footer>&copy; 2026 Eslam_Academy | جميع الحقوق محفوظة</footer>
-
     <script>
-        // تأثير الماتريكس
+        // ضبط أبعاد الـ Logic وتحديد الوجهة
+        const params = new URLSearchParams(window.location.search);
+        const from = params.get('from');
+        const backBtn = document.getElementById('back-btn');
+        const btnText = document.getElementById('btn-text');
+        const titleText = document.getElementById('title-text');
+
+        if (from === 'tools') {
+            backBtn.href = 'tools.html';
+            btnText.innerText = 'العودة للأدوات';
+            titleText.innerText = 'الأداة قيد التجهيز';
+        } else if (from === 'courses') {
+            backBtn.href = 'courses.html';
+            btnText.innerText = 'العودة للكورسات';
+            titleText.innerText = 'الكورس قادم قريباً';
+        }
+
+        // Matrix Background Animation
         const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
         function setSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         setSize(); window.onresize = setSize;
         const drops = Array(Math.floor(canvas.width/20)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(3, 3, 3, 0.15)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#0f0"; ctx.font = "15px monospace";
             drops.forEach((y, i) => {
                 ctx.fillText(Math.floor(Math.random()*2), i*20, y*20);
@@ -103,25 +122,6 @@
                 drops[i]++;
             });
         } setInterval(draw, 35);
-
-        // نظام العداد التنازلي
-        const targetDate = new Date().getTime() + (10 * 24 * 60 * 60 * 1000); 
-        function updateTimer() {
-            const now = new Date().getTime();
-            const diff = targetDate - now;
-            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-            document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-            document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
-        } setInterval(updateTimer, 1000);
-
-        // فحص المستخدم
-        window.onload = function() {
-            const user = localStorage.getItem('user_name');
-            if (user) {
-                document.getElementById('authSection').innerHTML = `<span style="color:var(--matrix)">SUDO: ${user}</span>`;
-            }
-        }
     </script>
 </body>
 </html>
